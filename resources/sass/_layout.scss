@@ -1,0 +1,59 @@
+.wrapper {
+    width: 100%;
+    @include ltr-rtl("padding-left", var(--cui-sidebar-occupy-start, 0));
+    will-change: auto;
+    @include transition(padding 0.15s);
+}
+
+[data-coreui-theme="blue"] {
+    --cui-body-color: var(--cui-white);
+    --cui-body-color-rgb: #{to-rgb($white)};
+    --cui-body-bg: var(--cui-blue);
+    --cui-body-bg-rgb: #{to-rgb($blue)};
+    --cui-tertiary-bg: #{$blue-600};
+
+    .dropdown-menu {
+        --cui-dropdown-bg: #{mix($blue-500, $blue-600)};
+        --cui-dropdown-link-active-bg: #{$blue-700};
+    }
+
+    .btn-secondary {
+        //--cui-btn-bg: #{mix($gray-600, $blue-400, 0.5)};
+        --cui-btn-border-color: #{rgba($white, 0.25)};
+        //--cui-btn-hover-bg: #{darken(mix($gray-600, $blue-400, 0.5), 5%)};
+        --cui-btn-hover-border-color: #{rgba($white, 0.25)};
+        //--cui-btn-active-bg: #{darken(mix($gray-600, $blue-400, 0.5), 10%)};
+        --cui-btn-active-border-color: #{rgba($white, 0.5)};
+        --cui-btn-focus-border-color: #{rgba($white, 0.5)};
+        --cui-btn-focus-box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.2);
+    }
+}
+
+// qui se voglio sovrascrivere il tema dark o altre variabili
+
+[data-coreui-theme="dark"] {
+    .sidebar-dark {
+        background-color: #{$gray-800};
+    }
+    /* .btn-primary {
+        --cui-btn-bg: #{$indigo-400};
+        --cui-btn-border-color: #{$indigo-400};
+        --cui-btn-hover-bg: #{$indigo-500};
+        --cui-btn-hover-border-color: #{$indigo-500};
+        --cui-btn-active-bg: #{$indigo-500};
+        --cui-btn-active-border-color: #{$indigo-500};
+        --cui-btn-focus-border-color: #{$indigo-500};
+        --cui-btn-focus-box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+    } */
+
+    .text-bg-light {
+        background-color: var(--cui-body-bg) !important;
+        font-family: var(--cui-body-font-family) !important;
+        /* font-size: var(--cui-font-size-xs) !important; */
+        font-weight: var(--cui-font-weight-extrabold) !important;
+        line-height: var(--cui-body-line-height) !important;
+        color: var(--cui-body-color) !important;
+        text-align: var(--cui-body-text-align) !important;
+        text-decoration: none !important;
+    }
+}

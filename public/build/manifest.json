@@ -1,0 +1,70 @@
+{
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.ttf": {
+    "file": "assets/fa-brands-400-Dur5g48u.ttf",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.ttf"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2": {
+    "file": "assets/fa-brands-400-O7nZalfM.woff2",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf": {
+    "file": "assets/fa-regular-400-Bf3rG5Nx.ttf",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2": {
+    "file": "assets/fa-regular-400-DgEfZSYE.woff2",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf": {
+    "file": "assets/fa-solid-900-BV3CbEM2.ttf",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2": {
+    "file": "assets/fa-solid-900-DOQJEhcS.woff2",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.ttf": {
+    "file": "assets/fa-v4compatibility-B9MWI-E6.ttf",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.ttf"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2": {
+    "file": "assets/fa-v4compatibility-BX8XWJtE.woff2",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2"
+  },
+  "node_modules/lightbox2/dist/images/close.png": {
+    "file": "assets/close-DeJujm55.png",
+    "src": "node_modules/lightbox2/dist/images/close.png"
+  },
+  "node_modules/lightbox2/dist/images/loading.gif": {
+    "file": "assets/loading-BY_-FGaJ.gif",
+    "src": "node_modules/lightbox2/dist/images/loading.gif"
+  },
+  "node_modules/lightbox2/dist/images/next.png": {
+    "file": "assets/next-QVcNtdNi.png",
+    "src": "node_modules/lightbox2/dist/images/next.png"
+  },
+  "node_modules/lightbox2/dist/images/prev.png": {
+    "file": "assets/prev-BVHqDsrk.png",
+    "src": "node_modules/lightbox2/dist/images/prev.png"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-WzzhcLqM.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "css": [
+      "assets/app-DdhWJnU8.css"
+    ],
+    "assets": [
+      "assets/loading-BY_-FGaJ.gif",
+      "assets/prev-BVHqDsrk.png",
+      "assets/next-QVcNtdNi.png",
+      "assets/close-DeJujm55.png"
+    ]
+  },
+  "resources/sass/app.scss": {
+    "file": "assets/app-CSQAxH13.css",
+    "src": "resources/sass/app.scss",
+    "isEntry": true
+  }
+}

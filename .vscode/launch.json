@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for Xdebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9003, // Make sure this matches your Xdebug port
+            "pathMappings": {
+                "/var/www/html": "${workspaceFolder}" // Adjust this if your project path differs
+            }
+        }
+    ]
+}

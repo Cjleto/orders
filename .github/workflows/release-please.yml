@@ -1,0 +1,30 @@
+name: Release Please
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Release Please
+        id: release
+        uses: googleapis/release-please-action@v4
+        with:
+          release-type: php
+
+      - name: Visualizza informazioni sulla release
+        if: ${{ steps.release.outputs.release_created == 'true' }}
+        run: |
+          echo "Tag creato: v${{ steps.release.outputs.version }}"
+          echo "Versione principale: ${{ steps.release.outputs.major }}"
+          echo "Versione secondaria: ${{ steps.release.outputs.minor }}"
+          echo "Patch: ${{ steps.release.outputs.patch }}"
