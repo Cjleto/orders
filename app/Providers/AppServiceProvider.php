@@ -8,18 +8,17 @@ use Illuminate\Pagination\Paginator;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
-use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Validation\Rules\Password;
+use App\Repositories\Eloquent\RoleRepository;
 use App\Repositories\Eloquent\UserRepository;
 use App\Repositories\Eloquent\OrderRepository;
 use App\Repositories\Eloquent\ProductRepository;
-use RealRashid\SweetAlert\SweetAlertServiceProvider;
+use App\Repositories\Eloquent\CustomerRepository;
+use App\Repositories\Contracts\RoleRepositoryContract;
 use App\Repositories\Contracts\UserRepositoryContract;
 use App\Repositories\Contracts\OrderRepositoryContract;
 use App\Repositories\Contracts\ProductRepositoryContract;
-use App\Repositories\Contracts\RoleRepositoryContract;
-use App\Repositories\Eloquent\RoleRepository;
-use Spatie\Permission\Contracts\Role;
+use App\Repositories\Contracts\CustomerRepositoryContract;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -41,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ProductRepositoryContract::class, ProductRepository::class);
         $this->app->bind(OrderRepositoryContract::class, OrderRepository::class);
         $this->app->bind(RoleRepositoryContract::class, RoleRepository::class);
+        $this->app->bind(CustomerRepositoryContract::class, CustomerRepository::class);
 
     }
 

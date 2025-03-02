@@ -8,26 +8,6 @@ body{
 
 }
 
-.cj-custom-offcanvas-width {
-    width: 100% !important; // Default for small screens
-
-    @media (min-width: 576px) {
-        width: 80% !important; // For small devices
-    }
-
-    @media (min-width: 768px) {
-        width: 60% !important; // For tablets and medium devices
-    }
-
-    @media (min-width: 992px) {
-        width: 50% !important; // For larger devices like desktops
-    }
-
-    @media (min-width: 1200px) {
-        width: 40% !important; // For extra-large screens
-    }
-}
-
 .bg-indigo {
     background-color: var(--cui-indigo) !important;
 }
@@ -92,51 +72,6 @@ body{
     color: var(--cui-black) !important;
 }
 
-.btn-allergens {
-    color: #b4b4b4;
-    border: #b4b4b4 2px solid;
-    margin: 4px;
-    transition: all 100ms ease-out;
-    border-radius: 7px;
-    font-size: 14px;
-    padding: 6px 0px;
-    width: 100px;
-    height: 46px;
-}
-
-.badge-allergens {
-    color: #b4b4b4;
-    border: #b4b4b4 2px solid;
-    margin: 4px;
-    transition: all 100ms ease-out;
-    border-radius: 7px;
-    padding: 6px 0px;
-    font-size: large;
-}
-
-.badge-allergens-small, .badge-peculiarities-small {
-    color: #b4b4b4;
-    border: #b4b4b4 0px solid;
-    margin: 4px;
-    transition: all 100ms ease-out;
-    border-radius: 7px;
-    padding: 0px;
-    font-size: large;
-}
-
-.badge-allergens-small :hover, .badge-peculiarities-small :hover {
-    color: var(--cui-green)
-}
-
-.btn-allergens[state="active"] {
-    color: #198754 !important;
-}
-
-.btn-allergens:hover, .btn-allergens:active, .btn-allergens:focus {
-    border: #198754 2px solid !important;
-}
-
-
 .text-bg-cyan {
     background-color: var(--cui-cyan); // Imposta il nuovo colore di sfondo
     color: var(--cui-dark) !important;
@@ -152,95 +87,13 @@ body{
     color: var(--cui-dark) !important;
 }
 
-.category-color {
-    @extend .text-bg-warning;
-}
-
-.macro-category-color {
-    @extend .text-bg-pink;
-}
-
-.dish-color {
-    @extend .text-bg-teal;
-}
-
-.sub-category-color {
-    @extend .text-bg-cyan;
-}
-
-.badge-category {
-    @extend .badge;
-    @extend .category-color;
-    @extend .rounded-pill;
-    padding: 0.5rem;
-    font-size: 14px;
-}
-
-.badge-macro-category {
-    @extend .badge;
-    @extend .macro-category-color;
-    @extend .rounded-pill;
-    padding: 0.5rem;
-    font-size: 14px;
-}
-
-.badge-dish {
-    @extend .badge;
-    @extend .dish-color;
-    @extend .rounded-pill;
-    padding: 0.5rem;
-    font-size: 14px;
-}
-
-.badge-sub-category {
-    @extend .badge;
-    @extend .sub-category-color;
-    @extend .rounded-pill;
-    padding: 0.5rem;
-    font-size: 14px;
-}
-
-.breadcrumb-item::before {
-    margin: 5px;
-}
-
-.hover-info :hover {
-    background-color: var(--cui-primary-bg-subtle) !important;
-}
-
 .sidebar-nav .nav-link.active {
     color: var(--cui-white);
-    background: var(--cui-indigo);
+    background: var(--cui-primary);
 }
 
 [data-coreui-theme="dark"] {
     .hover-info :hover {
         background-color: var(--cui-primary-text-emphasis) !important;
     }
-
-}
-
-
-
-:root {
-    --color-allergen-0: #FBE582;  /* Giallo vivace */
-    --color-allergen-1: #FF6F61;  /* Rosso corallo */
-    --color-allergen-2: #6FCF75;  /* Verde chiaro */
-    --color-allergen-3: #FFC107;  /* Giallo oro */
-    --color-allergen-4: #FF8C00;  /* Arancione brillante */
-    --color-allergen-5: #F57F20;  /* Arancione scuro */
-    --color-allergen-6: #FF6B6B;  /* Rosso vivace */
-    --color-allergen-7: #4BC0C8;  /* Turchese chiaro */
-    --color-allergen-8: #6A5ACD;  /* Blu scuro */
-    --color-allergen-9: #5C6BC0;  /* Blu chiaro */
-    --color-allergen-10: #FFD54F; /* Giallo pastello */
-    --color-allergen-11: #FF5252; /* Rosso fragola */
-    --color-allergen-12: #8E24AA; /* Viola brillante */
-    --color-allergen-13: #66BB6A; /* Verde brillante */
-    --color-allergen-14: #AB47BC; /* Viola chiaro */
-    --color-allergen-15: #FFB74D; /* Arancione chiaro */
-    --color-allergen-16: #FF4081; /* Rosa brillante */
-    --color-allergen-17: #29B6F6; /* Blu cielo */
-    --color-allergen-18: #7E57C2; /* Viola tenue */
-    --color-allergen-19: #B5E0F6;  /* Blu pastello */
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\UserController;
 use App\Http\Controllers\Web\RolesController;
 use App\Http\Controllers\Web\ProfileController;
+use App\Http\Controllers\Web\CustomerController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -36,5 +37,12 @@ Route::prefix('admin')->group(function () {
     Route::middleware('can:manage_users')->group(function () {
         Route::resource('users', UserController::class);
     });
+
+});
+
+// CUSTOMERS
+Route::middleware('auth')->group(function () {
+
+    Route::resource('customers', CustomerController::class);
 
 });

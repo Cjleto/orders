@@ -5,10 +5,12 @@ return [
         'admin' => [
             'manage_users',
             'manage_roles',
-            'manage_orders'
+            'manage_orders',
+            'manage_customers',
         ],
         'customer' => [
-            'show_orders'
+            'manage_orders',
+            'manage_customers'
         ]
     ],
 

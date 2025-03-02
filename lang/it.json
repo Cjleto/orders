@@ -1,6 +1,22 @@
 {
     "delete_confirm_title": "Sei sicuro?",
     "delete_confirm_text": "Questa azione non può essere annullata!",
-    "delete_confirm_button": "Sì, elimina!",
-    "delete_cancel_button": "Annulla"
+    "delete_confirm_button": "Sì, eliminalo!",
+    "delete_cancel_button": "Annulla",
+    "Full_Name": "Nome completo",
+    "Email": "Email",
+    "Phone": "Telefono",
+    "Address": "Indirizzo",
+    "City": "Città",
+    "State": "Stato",
+    "Zip": "CAP",
+    "Country": "Paese",
+    "Status": "Stato",
+    "Action": "Azione",
+    "Add_New": "Aggiungi nuovo",
+    "Edit": "Modifica",
+    "Delete": "Elimina",
+    "View": "Visualizza",
+    "Save": "Salva",
+    "Cancel": "Annulla"
 }

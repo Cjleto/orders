@@ -88,14 +88,14 @@ class User extends Authenticatable
         ];
     }
 
-    public function scopeCustomer($query)
+    public function scopeManager($query)
     {
-        return $query->role('customer');
+        return $query->role('manager');
     }
 
-    public function isCustomer(): bool
+    public function isManager(): bool
     {
-        return $this->hasRole('customer');
+        return $this->hasRole('manager');
     }
 
 }
