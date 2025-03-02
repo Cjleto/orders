@@ -35,9 +35,10 @@ abstract class BaseRepository implements BaseContract
             ->update($data);
     }
 
-    public function delete(int $id): bool
+    public function delete(int $id): bool|null
     {
-        return $this->model->delete($id);
+        $model = $this->model->find($id);
+        return $model->delete();
     }
 
     public function paginate(int $perPage = 10): LengthAwarePaginator

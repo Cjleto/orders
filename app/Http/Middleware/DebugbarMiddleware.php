@@ -17,16 +17,10 @@ class DebugbarMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        Debugbar::disable();
-
-        if (Auth::check()) {
-            if (Auth::user()->hasRole('admin')) {
-                Debugbar::enable();
-            }
-        }
-
-        if (config('app.env') === 'local' && config('app.debug')) {
+        if (Auth::check() && (Auth::user()->hasRole('admin') || (config('app.env') === 'local' && config('app.debug')))) {
             Debugbar::enable();
+        } else {
+            Debugbar::disable();
         }
 
 

@@ -192,5 +192,4 @@ return [
     'attributes' => [],
 
     'validation_invitation' => 'Please check the following errors:',
-    'dish_update_error' => 'An error occurred while updating the dish.',
 ];

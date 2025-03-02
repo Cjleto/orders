@@ -72,4 +72,9 @@ class UserService
         return $this->userRepository->paginate($perPage);
     }
 
+    public function delete(int $id): bool|null
+    {
+        return $this->userRepository->delete($id);
+    }
+
 }

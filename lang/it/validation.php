@@ -192,5 +192,4 @@ return [
     'attributes' => [],
 
     'validation_invitation' => 'Per favore controlla i segeuenti errori di validazione:',
-    'dish_update_error' => 'Si è verificato un errore durante l\'aggiornamento del piatto.',
 ];

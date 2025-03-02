@@ -4,14 +4,15 @@ namespace App\Http\Controllers\Web;
 
 use App\Models\User;
 use App\DTO\UserStoreDTO;
+use Illuminate\View\View;
 use App\DTO\UserUpdateDTO;
 use App\Services\RoleService;
 use App\Services\UserService;
 use App\Http\Requests\StoreUser;
 use App\Http\Requests\UpdateUser;
-use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use RealRashid\SweetAlert\Facades\Alert;
 
 /**
@@ -26,7 +27,7 @@ class UserController extends Controller
         protected RoleService $roleService
     ){}
 
-    public function index()
+    public function index(): View
     {
 
         $users = $this->userService->paginate();
@@ -34,14 +35,15 @@ class UserController extends Controller
         return view('users.index', compact('users'));
     }
 
-    public function create()
+    public function create(): View
     {
         $roles = $this->roleService->all();
 
         return view('users.create', compact('roles'));
     }
 
-    public function store(StoreUser $request){
+    public function store(StoreUser $request): RedirectResponse
+    {
         try
         {
             $validated = $request->validated();
@@ -67,13 +69,13 @@ class UserController extends Controller
 
     }
 
-    public function edit(User $user)
+    public function edit(User $user): View
     {
         $roles = $this->roleService->all();
         return view('users.edit', compact(['user','roles']));
     }
 
-    public function update(UpdateUser $request, User $user)
+    public function update(UpdateUser $request, User $user): RedirectResponse
     {
 
         try
@@ -95,7 +97,25 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-    public function toggleTheme() {
+    public function destroy(User $user): RedirectResponse
+    {
+        try
+        {
+            $this->userService->delete($user->id);
+
+            Alert::alert('Success', "User {$user->name} deleted", 'success');
+        }
+        catch(\Exception $e)
+        {
+            Alert::alert('Error', $e->getMessage(), 'error');
+            return redirect()->back();
+        }
+
+        return redirect()->route('users.index');
+    }
+
+    public function toggleTheme(): RedirectResponse
+    {
         $theme = match(Auth::user()->theme) {
             'dark' => 'light',
             'light' => 'dark',
