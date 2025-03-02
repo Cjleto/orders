@@ -20,13 +20,6 @@ return Application::configure(basePath: dirname(__DIR__))
             DebugbarMiddleware::class,
         ]);
 
-        $middleware->alias([
-            'missingMenuSetting' => MissingMenuSettings::class,
-            'existsOneVisibleDish' => ExistsOneVisibleDish::class,
-            'setLocale' => SetLocale::class,
-            'registerVisit' => TrackVisit::class,
-        ]);
-
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

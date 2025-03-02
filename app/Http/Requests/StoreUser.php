@@ -20,9 +20,18 @@ class StoreUser extends FormRequest
     {
 
         return [
-            'name' => 'required|min:2|max:55',
-            'email' => 'required|email|unique:users,email',
-            'password' => ['required', Password::defaults()],
+            'name' => [
+                'required','min:2','max:55'
+            ],
+            'email' => [
+                'required',
+                'email',
+                'unique:users,email'
+            ],
+            'password' => [
+                'required',
+                Password::defaults()
+            ],
             'role' => [
                 'required',
                 Rule::in(Role::pluck('name')->toArray())

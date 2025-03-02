@@ -2,12 +2,9 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
-use Lab404\Impersonate\Models\Impersonate;
-use App\Traits\LogsActivityWithImpersonation;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -54,7 +51,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
 
-    use HasFactory, Notifiable, HasRoles, Impersonate, LogsActivityWithImpersonation;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -90,30 +87,14 @@ class User extends Authenticatable
         ];
     }
 
-    public function canImpersonate (): bool
+    public function scopeCustomer($query)
     {
-        return $this->hasRole('admin');
+        return $query->role('customer');
     }
 
-    public function canBeImpersonated (): bool
+    public function isCustomer(): bool
     {
-        return !$this->hasRole('admin');
-    }
-
-    /** RELATIONS */
-    public function company(): HasOne
-    {
-        return $this->hasOne(Company::class);
-    }
-
-    public function scopeManagers($query)
-    {
-        return $query->role('manager');
-    }
-
-    public function isManager(): bool
-    {
-        return $this->hasRole('manager');
+        return $this->hasRole('customer');
     }
 
 }

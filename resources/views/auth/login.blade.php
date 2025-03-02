@@ -56,16 +56,6 @@
                 </div>
             </div> --}}
         </div>
-        @env('local')
-        <div class="row d-flex justify-content-between align-items-center">
-            <div class="p-2 align-content-center" style="flex-basis: content">
-                <x-login-link email="admin@admin.com" label="Login as admin" class="btn btn-info btn-sm" />
-            </div>
-            <div class="p-2 align-content-center" style="flex-basis: content">
-                <x-login-link email="manager@manager.com" label="Login as manager" class="btn btn-sm btn-secondary" />
-            </div>
 
-        </div>
-        @endenv
     </div>
 @endsection

@@ -40,13 +40,13 @@ class UserFactory extends Factory
         });
     }
 
-    public function manager()
+    public function customer()
     {
         return $this->afterCreating(function (User $user) {
-            // Assegna il ruolo manager all'utente
-            $managerRole = Role::where('name', 'manager')->first();
-            if ($managerRole) {
-                $user->assignRole($managerRole);
+
+            $customerRole = Role::where('name', 'customer')->first();
+            if ($customerRole) {
+                $user->assignRole($customerRole);
             }
         });
     }

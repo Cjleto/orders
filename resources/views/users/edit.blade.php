@@ -47,7 +47,7 @@
                         <div class="mb-3">
                             <label for="password" class="form-label">{{ __('Password') }}</label>
                             <input id="password" name="password" type="password" value="{{ old('password') }}"
-                                class="form-control @error('password') is-invalid @enderror" required>
+                                class="form-control @error('password') is-invalid @enderror" @required(Route::currentRouteName() != 'users.edit')>
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

@@ -43,61 +43,7 @@
         </li>
     @endcan
 
-    @can('manage_companies')
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('companies.index') }}">
-                <svg class="nav-icon">
-                    <use xlink:href="{{ asset('icons/coreui.svg#cil-restaurant') }}"></use>
-                </svg>
-                {{ __('Companies') }}
-            </a>
-        </li>
-    @endcan
 
-    @can('manage_macro_categories')
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('macro_categories.index') }}">
-                <svg class="nav-icon">
-                    <use xlink:href="{{ asset('icons/coreui.svg#cil-menu') }}"></use>
-                </svg>
-                {{ __('Categories Settings') }}
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('dishes.create', ['user' => auth()->user()]) }}">
-                <svg class="nav-icon">
-                    <use xlink:href="{{ asset('icons/coreui.svg#cil-restaurant') }}"></use>
-                </svg>
-                {{ __('Create') }} {{ __('Dishes') }}
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('map-entities', ['user' => auth()->user()]) }}">
-                <svg class="nav-icon">
-                    <use xlink:href="{{ asset('icons/coreui.svg#cil-map') }}"></use>
-                </svg>
-                {{ __('Map') }}
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('company.settings') }}">
-                <i class="me-3 fa-solid fa-cog"></i>
-                {{ __('Company Settings') }}
-            </a>
-        </li>
-
-        <hr>
-
-        @if(auth()->user()?->company?->slug)
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('public.menu',['company' => auth()->user()->company->slug]) }}" target="_alt">
-                <i class="me-3 fa-solid fa-globe"></i>
-                {{ __('Public Menu') }}
-            </a>
-        </li>
-        @endif
-    @endcan
 
     <div class="d-md-none">
         <div class="nav-title">{{ __('Settings') }}</div>
