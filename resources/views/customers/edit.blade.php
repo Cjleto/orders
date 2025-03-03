@@ -3,7 +3,7 @@
 @section('content')
     <div class="mb-4 card">
         <div class="card-header">
-            {{ __('Edit Customer') }}
+            {{ __('edit Customer') }}
         </div>
 
         <div class="card-body">
@@ -42,7 +42,7 @@
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="mb-3">
-                            <label for="email" class="form-label">{{ __('Email') }}</label>
+                            <label for="email" class="form-label">{{ __('email') }}</label>
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
                                 name="email" value="{{ old('email', $customer->email) }}" required>
                             @error('email')
@@ -55,7 +55,7 @@
 
                     <div class="col-12 col-md-6">
                         <div class="mb-3">
-                            <label for="phone" class="form-label">{{ __('Phone') }}</label>
+                            <label for="phone" class="form-label">{{ __('phone') }}</label>
                             <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror"
                                 name="phone" value="{{ old('phone', $customer->phone) }}" required>
                             @error('phone')
@@ -70,7 +70,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="mb-3">
-                            <label for="address" class="form-label">{{ __('Address') }}</label>
+                            <label for="address" class="form-label">{{ __('address') }}</label>
                             <input id="address" type="text" class="form-control @error('address') is-invalid @enderror"
                                 name="address" value="{{ old('address', $customer->address) }}" required>
                             @error('address')
@@ -85,7 +85,7 @@
                 <div class="row">
                     <div class="col-12 d-flex justify-content-between">
                         <a href="{{ route('customers.index') }}" class="btn btn-secondary">
-                            {{ __('Cancel') }}
+                            {{ __('cancel') }}
                         </a>
                         <button type="submit" class="btn btn-primary">
                             {{ __('Update') }}

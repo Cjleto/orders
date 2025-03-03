@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-12 col-md-6">
                         <div class="mb-3">
-                            <label for="email" class="form-label">{{ __('Email') }}</label>
+                            <label for="email" class="form-label">{{ __('email') }}</label>
                             <input id="email" name="email" type="text"
                                 class="form-control @error('email') is-invalid @enderror"
                                 value="{{ $user->email ?? old('email') }}" required>

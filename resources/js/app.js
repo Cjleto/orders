@@ -40,6 +40,7 @@ window.addEventListener("swal:modal", (event) => {
 });
 
 document.addEventListener('close-modal', function () {
+    console.log('close-modal');
     var modals = document.querySelectorAll('.modal'); // Seleziona tutti i modali
     modals.forEach(function(modal) {
         // Verifica se il modal è aperto
@@ -52,21 +53,4 @@ document.addEventListener('close-modal', function () {
         }
     });
 });
-document.addEventListener('DOMContentLoaded', function () {
-    // Ascolta l'evento 'carica-tooltip' per ogni componente Livewire
-    window.addEventListener('carica-tooltip', function () {
-        //console.log('Evento carica-tooltip ricevuto'); // Verifica che l'evento sia stato ricevuto
 
-        setTimeout(function () {
-            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-coreui-toggle="tooltip"]'));
-            //console.log('Elementi trovati:', tooltipTriggerList.length); // Controlla se ci sono elementi
-
-            // Usa il ciclo for per inizializzare i tooltip
-            for (var i = 0; i < tooltipTriggerList.length; i++) {
-                var tooltipTriggerEl = tooltipTriggerList[i];
-                //console.log(tooltipTriggerEl); // Stampa l'elemento corrente
-                new coreui.Tooltip(tooltipTriggerEl); // Inizializza il tooltip
-            }
-        }, 500); // Timeout per assicurarsi che tutti i componenti siano caricati
-    });
-});

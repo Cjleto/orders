@@ -1,6 +1,9 @@
 <?php
 
 use App\Models\User;
+use App\Livewire\ProductShow;
+use App\Livewire\ProductIndex;
+use App\Livewire\ProductCreate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\HomeController;
@@ -31,11 +34,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/home', [HomeController::class, 'index_admin'])->name('admin.home');
 
     Route::middleware('can:manage_roles')->group(function () {
-        Route::resource('roles', RolesController::class);
+        Route::resource('roles', RolesController::class)->except(['show','destroy']);
     });
 
     Route::middleware('can:manage_users')->group(function () {
-        Route::resource('users', UserController::class);
+        Route::resource('users', UserController::class)->except(['show']);
     });
 
 });
@@ -44,5 +47,15 @@ Route::prefix('admin')->group(function () {
 Route::middleware('auth')->group(function () {
 
     Route::resource('customers', CustomerController::class);
+
+});
+
+
+// Approccio con livewire
+Route::middleware('auth')->group(function () {
+
+    Route::get('products', ProductIndex::class)->name('products.index');
+    Route::get('products/show/{product}', ProductShow::class)->name('products.show');
+    Route::get('products/create', ProductCreate::class)->name('products.create');
 
 });

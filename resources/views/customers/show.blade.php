@@ -21,18 +21,18 @@
 
                 <div class="mt-3 row">
                     <div class="col-md-6">
-                        <h5 class="text-muted">{{ __('Email') }}</h5>
+                        <h5 class="text-muted">{{ __('email') }}</h5>
                         <p class="fw-bold">{{ $customer->email }}</p>
                     </div>
                     <div class="col-md-6">
-                        <h5 class="text-muted">{{ __('Phone') }}</h5>
+                        <h5 class="text-muted">{{ __('phone') }}</h5>
                         <p class="fw-bold">{{ $customer->phone }}</p>
                     </div>
                 </div>
 
                 <div class="mt-3 row">
                     <div class="col-12">
-                        <h5 class="text-muted">{{ __('Address') }}</h5>
+                        <h5 class="text-muted">{{ __('address') }}</h5>
                         <p class="fw-bold">{{ $customer->address }}</p>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                 </a>
 
                 <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-warning">
-                    <i class="fas fa-edit"></i> {{ __('Edit') }}
+                    <i class="fas fa-edit"></i> {{ __('edit') }}
                 </a>
             </div>
         </div>

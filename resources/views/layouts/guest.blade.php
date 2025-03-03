@@ -16,10 +16,8 @@
     <div class="flex-row bg-light min-vh-100 d-flex align-items-center">
 
         <div class="container">
-            <div class="row">
-                <div class="col-1 offset-5">
-                    <img src="{{ asset('img/logo.png') }}" alt="logo" class="mb-3 w-25" >
-                </div>
+            <div class="d-flex justify-content-center">
+                    <img src="{{ asset('img/logo.png') }}" alt="logo" class="mb-3 " style="width: 130px;">
             </div>
             <div class="row justify-content-center">
             @yield('content')

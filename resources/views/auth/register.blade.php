@@ -26,7 +26,7 @@
                     <svg class="icon">
                       <use xlink:href="{{ asset('icons/coreui.svg#cil-envelope-open') }}"></use>
                     </svg></span>
-                        <input class="form-control" type="text" name="email" placeholder="{{ __('Email') }}" required
+                        <input class="form-control" type="text" name="email" placeholder="{{ __('email') }}" required
                                autocomplete="email">
                         @error('email')
                         <span class="invalid-feedback">

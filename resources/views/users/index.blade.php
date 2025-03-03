@@ -18,7 +18,7 @@
                 <thead>
                     <tr>
                         <th scope="col">{{ __('Name') }}</th>
-                        <th scope="col">{{ __('Email') }}</th>
+                        <th scope="col">{{ __('email') }}</th>
                         <th scope="col">{{ __('Roles') }}</th>
                         <th scope="col">{{ __('Actions') }}</th>
                     </tr>
@@ -32,7 +32,7 @@
 
                             <td class="gap-1 d-flex">
                                 <a href="{{ route('users.edit', $user) }}"
-                                    class="btn btn-sm btn-primary">{{ __('Edit') }}</a>
+                                    class="btn btn-sm btn-primary">{{ __('edit') }}</a>
                                     <form action="{{ route('users.destroy', $user) }}" method="POST" class="d-inline delete-user-form"
                                     data-title="{{ __('delete_confirm_title') }}"
                                     data-text="{{ __('delete_confirm_text') }}"
@@ -40,7 +40,7 @@
                                     data-cancel="{{ __('delete_cancel_button') }}">
                                   @csrf
                                   @method('DELETE')
-                                  <button type="submit" class="btn btn-sm btn-danger">{{ __('Delete') }}</button>
+                                  <button type="submit" class="btn btn-sm btn-danger">{{ __('delete') }}</button>
                               </form>
                             </td>
                         </tr>

@@ -12,6 +12,7 @@ use App\Repositories\Contracts\UserRepositoryContract;
 
 /**
  * @property UserRepository userRepository
+ * @property RoleRepository roleRepository
  */
 class UserService
 {

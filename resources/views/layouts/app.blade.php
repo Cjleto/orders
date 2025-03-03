@@ -18,7 +18,7 @@
     <meta name="og:url" property="og:url" content="{{ url()->current() }}">
     @vite('resources/sass/app.scss')
     @livewireStyles
-    @livewireChartsScripts
+
 </head>
 
 <body>
@@ -87,7 +87,8 @@
         </header>
         <div class="px-3 body flex-grow-1">
             <div class="container-lg">
-                @yield('content')
+                @yield('content') <!-- Renderizzazione dei contenuti Blade -->
+                {{ $slot ?? '' }} <!-- Renderizzazione dei contenuti Livewire -->
             </div>
         </div>
 

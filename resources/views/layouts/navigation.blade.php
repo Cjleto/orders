@@ -16,7 +16,7 @@
                 <svg class="nav-icon">
                     <use xlink:href="{{ asset('icons/coreui.svg#cil-star') }}"></use>
                 </svg>
-                {{ __('Users') }}
+                {{ __('users') }}
             </a>
             <ul class="nav-group-items" style="height: auto;">
                 <li class="nav-item active">
@@ -24,7 +24,7 @@
                         <svg class="nav-icon">
                             <use xlink:href="{{ asset('icons/coreui.svg#cil-user') }}"></use>
                         </svg>
-                        {{ __('Users') }}
+                        {{ __('users') }}
                     </a>
                 </li>
 
@@ -35,7 +35,7 @@
                             <svg class="nav-icon">
                                 <use xlink:href="{{ asset('icons/coreui.svg#cil-user-follow') }}"></use>
                             </svg>
-                            {{ __('Roles') }}
+                            {{ __('roles') }}
                         </a>
                     </li>
                 @endcan
@@ -49,7 +49,16 @@
                 <svg class="nav-icon">
                     <use xlink:href="{{ asset('icons/coreui.svg#cil-user-follow') }}"></use>
                 </svg>
-                {{ __('Customers') }}
+                {{ __('customers') }}
+            </a>
+        </li>
+    @endcan
+
+    @can('manage_products')
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('products.index') }}">
+                <x-common.product-icon class="nav-icon" />
+                {{ __('products') }}
             </a>
         </li>
     @endcan
@@ -61,7 +70,7 @@
                 <svg class="nav-icon">
                     <use xlink:href="{{ asset('icons/coreui.svg#cil-cog') }}"></use>
                 </svg>
-                {{ __('Setting') }}
+                {{ __('setting') }}
             </a>
             <ul class="nav-group-items" style="height: auto;">
                 <li class="nav-item {{ request()->is('profile/*') ? 'active' : '' }}"

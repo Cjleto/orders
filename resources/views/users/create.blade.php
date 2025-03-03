@@ -27,7 +27,7 @@
                     </div>
                     <div class="col-12 col-md-6">
                         <div class="mb-3">
-                            <label for="email" class="form-label">{{ __('Email') }}</label>
+                            <label for="email" class="form-label">{{ __('email') }}</label>
                             <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email"
                                 value="{{ old('email') }}" required autofocus>
                             @error('email')
@@ -81,7 +81,7 @@
                 <div class="row">
                     <div class="m-3 col-12 d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary">
-                            {{ __('Save') }}
+                            {{ __('save') }}
                         </button>
                     </div>
                 </div>

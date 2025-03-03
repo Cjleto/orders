@@ -41,7 +41,7 @@
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="mb-3">
-                            <label for="email" class="form-label">{{ __('Email') }}</label>
+                            <label for="email" class="form-label">{{ __('email') }}</label>
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
                                 name="email" value="{{ old('email') }}" required>
                             @error('email')
@@ -54,7 +54,7 @@
 
                     <div class="col-12 col-md-6">
                         <div class="mb-3">
-                            <label for="phone" class="form-label">{{ __('Phone') }}</label>
+                            <label for="phone" class="form-label">{{ __('phone') }}</label>
                             <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror"
                                 name="phone" value="{{ old('phone') }}" required>
                             @error('phone')
@@ -69,7 +69,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="mb-3">
-                            <label for="address" class="form-label">{{ __('Address') }}</label>
+                            <label for="address" class="form-label">{{ __('address') }}</label>
                             <input id="address" type="text" class="form-control @error('address') is-invalid @enderror"
                                 name="address" value="{{ old('address') }}" required>
                             @error('address')
@@ -84,7 +84,7 @@
                 <div class="row">
                     <div class="me-3 col-12 d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary">
-                            {{ __('Save') }}
+                            {{ __('save') }}
                         </button>
                     </div>
                 </div>

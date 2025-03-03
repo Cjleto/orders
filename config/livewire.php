@@ -38,7 +38,7 @@ return [
     |
     */
 
-    'layout' => 'components.layouts.app_livewire',
+    'layout' => 'layouts.app',
 
     /*
     |---------------------------------------------------------------------------
@@ -50,7 +50,7 @@ return [
     |
     */
 
-    'lazy_placeholder' => 'components.common.spinner-placeholder',
+    'lazy_placeholder' => null,
 
     /*
     |---------------------------------------------------------------------------
