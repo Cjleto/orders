@@ -38,5 +38,6 @@
     "updated_successfully": "Updated successfully",
     "deleted_successfully": "Deleted successfully",
     "created_successfully": "Created successfully",
-    "confirm_delete": "Are you sure you want to delete "
+    "confirm_delete": "Are you sure you want to delete ",
+    "no_orders_found": "No orders found"
 }

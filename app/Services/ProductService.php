@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\Product;
 use App\DTO\ProductStoreDTO;
 use App\DTO\ProductUpdateDTO;
-use Illuminate\Support\Facades\DB;
 use App\Actions\Product\CreateProductAction;
 use App\Actions\Product\DeleteProductAction;
 use App\Actions\Product\UpdateProductAction;

@@ -72,7 +72,8 @@ class Product extends Model implements HasMedia
     {
 
         $this->addMediaCollection('photo')
-            ->singleFile();
+            ->singleFile()
+            ->useFallbackUrl('/img/nologo.jpeg');
     }
 
     public function registerMediaConversions(?Media $media = null): void

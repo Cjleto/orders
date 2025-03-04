@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -19,12 +20,7 @@ class InitialDataSeeder extends Seeder
             'password' => bcrypt('Qwerty7-')
         ]);
 
-        $customer = User::factory()->customer()->create([
-            'name' => 'customer',
-            'email' => 'customer@customer.com',
-            'password' => bcrypt('Qwerty7-')
-        ]);
-
+        $customers = Customer::factory()->count(10)->create();
 
     }
 

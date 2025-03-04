@@ -12,3 +12,4 @@ per chiudere i modal con wire:ignore ho inserito in app.js un evento close-modal
 # TODO
 Gestione Categorie
 Gestione history price per product
+Cache entities

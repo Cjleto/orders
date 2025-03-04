@@ -7,10 +7,7 @@ use App\DTO\ProductStoreDTO;
 use App\Helpers\LivewireSwal;
 use App\Http\Requests\ProductRequest;
 use Livewire\WithFileUploads;
-use Illuminate\Validation\Rule;
 use App\Services\ProductService;
-use App\Rules\LivewireFileNameTooLong;
-use App\Repositories\Contracts\ProductRepositoryContract;
 
 class ProductCreate extends Component
 {

@@ -97,3 +97,24 @@ body{
         background-color: var(--cui-primary-text-emphasis) !important;
     }
 }
+
+
+.cj-custom-offcanvas-width {
+    width: 100% !important; // Default for small screens
+
+    @media (min-width: 576px) {
+        width: 80% !important; // For small devices
+    }
+
+    @media (min-width: 768px) {
+        width: 60% !important; // For tablets and medium devices
+    }
+
+    @media (min-width: 992px) {
+        width: 50% !important; // For larger devices like desktops
+    }
+
+    @media (min-width: 1200px) {
+        width: 40% !important; // For extra-large screens
+    }
+}

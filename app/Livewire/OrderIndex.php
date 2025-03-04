@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Product;
+use App\Models\Order;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
@@ -10,11 +10,11 @@ use App\Helpers\LivewireSwal;
 use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Computed;
 use Illuminate\Contracts\View\View;
-use App\Repositories\Contracts\ProductRepositoryContract;
+use App\Repositories\Contracts\OrderRepositoryContract;
 use Debugbar;
 
 #[Lazy]
-class ProductIndex extends Component
+class OrderIndex extends Component
 {
     use WithPagination;
 
@@ -37,31 +37,31 @@ class ProductIndex extends Component
     public function updatedPaginationCount(int $value): void
     {
         $this->resetPage();
-        $this->products();
+        $this->orders();
     }
 
     #[Computed()]
-    #[On('productUpdated')]
-    public function products()
+    #[On('orderUpdated')]
+    public function orders()
     {
 
-        Debugbar::info('products requested');
+        Debugbar::info('orders requested');
 
-        $productRepository = app(ProductRepositoryContract::class);
-        $products =  $productRepository->searchByFieldPaginated(
+        /** @var OrderRepository $orderRepository */
+        $orderRepository = app(OrderRepositoryContract::class);
+        $orders =  $orderRepository->searchByFieldPaginated(
             search: $this->search,
-            field: 'description',
+            field: 'id',
             paginationCount: $this->paginationCount
         );
 
-        return $products;
-
+        return $orders;
     }
 
     public function render(): View
     {
-        return view('livewire.product-index', [
-            'paginatedProducts' => $this->products(),
+        return view('livewire.order-index', [
+            'paginatedOrders' => $this->orders(),
         ]);
     }
 }

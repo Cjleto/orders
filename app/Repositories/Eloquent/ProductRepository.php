@@ -15,7 +15,12 @@ class ProductRepository extends BaseRepository implements ProductRepositoryContr
         parent::__construct($model);
     }
 
-    public function searchByField(string $search, string $field, int $paginationCount = 10): LengthAwarePaginator
+    public function query(): Builder
+    {
+        return $this->model->query();
+    }
+
+    public function searchByFieldPaginated(string $search, string $field, int $paginationCount = 10): LengthAwarePaginator
     {
         $query = $this->model;
 

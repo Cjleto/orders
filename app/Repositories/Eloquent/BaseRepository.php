@@ -49,4 +49,16 @@ abstract class BaseRepository implements BaseContract
     {
         return $this->model->paginate($perPage);
     }
+
+    // Metodo generico per eseguire una WHERE su un campo specifico
+    public function searchByField(string $field, string $search): Collection
+    {
+        return $this->model->where($field, 'LIKE', "%$search%")->get();
+    }
+
+    // Metodo con paginazione
+    public function searchByFieldPaginated(string $field, string $search, int $paginationCount = 10): LengthAwarePaginator
+    {
+        return $this->model->where($field, 'LIKE', "%$search%")->paginate($paginationCount);
+    }
 }

@@ -55,4 +55,24 @@ interface BaseContract
      * @return LengthAwarePaginator
      */
     public function paginate(int $perPage = 10): LengthAwarePaginator;
+
+
+    /**
+     * Search resources by field.
+     *
+     * @param string $field
+     * @param string $value
+     * @return Collection
+     */
+    public function searchByField(string $field, string $value): Collection;
+
+    /**
+     * Search resources by field with pagination.
+     *
+     * @param string $field
+     * @param string $value
+     * @param int $paginationCount
+     * @return LengthAwarePaginator
+     */
+    public function searchByFieldPaginated(string $field, string $value, int $paginationCount = 10): LengthAwarePaginator;
 }

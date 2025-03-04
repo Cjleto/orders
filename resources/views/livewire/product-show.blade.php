@@ -10,7 +10,7 @@
                             data-lightbox="img-{{ $product->id }}">
                             <img src="{{ $product->getFirstMediaUrl('photo', 'thumb') }}"
                                 alt="{{ $product->name }}"
-                                class="img-fluid img-thumbnail img-dish-menu">
+                                class="img-fluid img-thumbnail ">
                         </a>
                     </div>
                 @else

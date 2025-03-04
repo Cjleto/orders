@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\User;
+use App\Livewire\OrderIndex;
+use App\Livewire\OrderCreate;
 use App\Livewire\ProductShow;
 use App\Livewire\ProductIndex;
 use App\Livewire\ProductCreate;
@@ -57,5 +59,9 @@ Route::middleware('auth')->group(function () {
     Route::get('products', ProductIndex::class)->name('products.index');
     Route::get('products/show/{product}', ProductShow::class)->name('products.show');
     Route::get('products/create', ProductCreate::class)->name('products.create');
+
+    Route::get('orders', OrderIndex::class)->name('orders.index');
+    Route::get('orders/show/{order}', fn() => dd('not implemented'))->name('orders.show');
+    Route::get('orders/create', OrderCreate::class)->name('orders.create');
 
 });

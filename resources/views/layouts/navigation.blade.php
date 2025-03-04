@@ -61,6 +61,12 @@
                 {{ __('products') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('orders.index') }}">
+                <x-common.order-icon class="nav-icon" />
+                {{ __('orders') }}
+            </a>
+        </li>
     @endcan
 
     <div class="d-md-none">
