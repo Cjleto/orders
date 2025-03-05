@@ -30,13 +30,12 @@ class Product extends Model implements HasMedia
         'price' => 'decimal:2',
     ];
 
-    // 🔹 Relazione Many-to-Many con Order
-    /*  public function orders()
+    public function orders()
     {
-        return $this->belongsToMany(Order::class)
-            ->withPivot('quantity', 'price_at_order')
+        return $this->belongsToMany(Order::class, 'order_product')
+            ->withPivot(['quantity', 'product_name', 'product_price'])
             ->withTimestamps();
-    } */
+    }
 
     /** ACCESSORS */
 

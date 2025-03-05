@@ -31,9 +31,15 @@
 
                             <td class="gap-1 d-flex">
                                 <a href="{{ route('customers.show', $customer) }}"
-                                    class="btn btn-sm btn-secondary">{{ __('Show') }}</a>
+                                        class="btn btn-sm btn-primary"
+                                        data-coreui-toggle="tooltip" data-coreui-placement="top"
+                                        data-coreui-custom-class="custom-tooltip" data-coreui-title="{{ __('Show') }}">
+                                        <svg class="icon">
+                                            <use xlink:href="{{ asset('icons/coreui.svg#cil-magnifying-glass') }}"></use>
+                                        </svg>
+                                    </a>
                                 <a href="{{ route('customers.edit', $customer) }}"
-                                    class="btn btn-sm btn-primary">{{ __('edit') }}</a>
+                                    class="btn btn-sm btn-warning"><i class="text-white fa-solid fa-pen"></i></a>
                                 <form action="{{ route('customers.destroy', $customer) }}" method="POST" class="d-inline delete-customer-form"
                                     data-title="{{ __('delete_confirm_title') }}"
                                     data-text="{{ __('delete_confirm_text') }}"
@@ -41,7 +47,7 @@
                                     data-cancel="{{ __('delete_cancel_button') }}">
                                   @csrf
                                   @method('DELETE')
-                                  <button type="submit" class="btn btn-sm btn-danger">{{ __('delete') }}</button>
+                                  <button type="submit" class="btn btn-sm btn-danger"><i class="text-white fa-solid fa-trash"></i></button>
                               </form>
                             </td>
                         </tr>

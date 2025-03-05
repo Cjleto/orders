@@ -5,11 +5,15 @@ namespace App\Livewire;
 use Debugbar;
 use App\Models\Product;
 use Livewire\Component;
+use App\DTO\OrderStoreDTO;
 use Livewire\Attributes\On;
 use App\DTO\OrderProductDTO;
 use App\Helpers\LivewireSwal;
 use Livewire\Attributes\Computed;
 use Illuminate\Support\Collection;
+use App\Actions\Order\CreateOrderAction;
+use App\Enums\OrderStatus;
+use App\Http\Requests\StoreOrderRequest;
 use App\Repositories\Contracts\OrderRepositoryContract;
 use App\Repositories\Contracts\ProductRepositoryContract;
 use App\Repositories\Contracts\CustomerRepositoryContract;
@@ -23,15 +27,32 @@ class OrderCreate extends Component
     public string $searchProduct = '';
     public bool $showSaveButton = false;
 
-    public int $customerId;
+    public float $total = 0;
+    public string $status = OrderStatus::IN_ELABORAZIONE->value;
+    public int $customer_id = 0;
     public int $selectedProductId = 0;
     public Product $selectedProduct;
+    public $createdOrder;
+
+    public function rules()
+    {
+        return (new StoreOrderRequest())->rules();
+    }
 
     public function mount ()
     {
         $this->loadCustomers();
         $this->orderItems = collect();
         $this->dispatch('searchProductUpdated', '');
+    }
+
+    public function setShowButton()
+    {
+        Debugbar::info("cus: " . $this->customer_id);
+        $this->showSaveButton = false;
+        if($this->orderItems->count() > 0 && $this->customer_id > 0) {
+            $this->showSaveButton = true;
+        }
     }
 
     public function loadProducts (string $value)
@@ -64,11 +85,10 @@ class OrderCreate extends Component
     public function addOrderItem (Product $product)
     {
        try {
-            $this->checkQuantity($product);
+            $this->__checkQuantity($product);
             $this->addProduct($product);
             $this->showSaveButton = true;
         } catch (\Exception $e) {
-            $this->showSaveButton = false;
             LivewireSwal::make($this)
                 ->error()
                 ->toast()
@@ -90,7 +110,7 @@ class OrderCreate extends Component
         });
 
         if ($existingItemKey !== false) {
-            $this->increaseQuantity($existingItemKey);
+            $this->__increaseQuantity($existingItemKey);
             return;
         }
 
@@ -104,7 +124,7 @@ class OrderCreate extends Component
         $this->orderItems[] = $item->toArray();
     }
 
-    private function checkQuantity(Product $product)
+    private function __checkQuantity(Product $product)
     {
         $existingItemKey = $this->orderItems->search(function ($item) use ($product) {
             return $item['product_id'] === $product->id;
@@ -125,7 +145,7 @@ class OrderCreate extends Component
         });
 
         if ($existingItemKey !== false) {
-            $this->decreaseQuantity($existingItemKey);
+            $this->__decreaseQuantity($existingItemKey);
 
             if ($this->orderItems[$existingItemKey]['quantity'] <= 0) {
                 $this->orderItems->forget($existingItemKey);
@@ -135,7 +155,7 @@ class OrderCreate extends Component
         Debugbar::info($this->orderItems);
     }
 
-    private function increaseQuantity (int $existingItemKey)
+    private function __increaseQuantity (int $existingItemKey)
     {
         $this->orderItems = $this->orderItems->transform(function ($item, $key) use ($existingItemKey) {
             if ($key === $existingItemKey) {
@@ -146,7 +166,7 @@ class OrderCreate extends Component
     }
 
 
-    private function decreaseQuantity(int $existingItemKey)
+    private function __decreaseQuantity(int $existingItemKey)
     {
         $this->orderItems = $this->orderItems->transform(function ($item, $key) use ($existingItemKey) {
             if ($key === $existingItemKey) {
@@ -157,15 +177,69 @@ class OrderCreate extends Component
     }
 
     #[Computed()]
-    public function total()
+    public function setTotal()
     {
-        return $this->orderItems->sum(function ($item) {
+        $this->total = $this->orderItems->sum(function ($item) {
             return $item['quantity'] * $item['product_price'];
         });
     }
 
+    public function saveOrder (CreateOrderAction $createOrderAction)
+    {
+
+        try{
+            $validated = $this->validate();
+            $orderStoreDTO = new OrderStoreDTO(
+                customer_id: $this->customer_id,
+                total: $this->total,
+                status: $this->status
+            );
+
+            $order = $createOrderAction->execute($orderStoreDTO, $this->orderItems);
+            $this->createdOrder = $order;
+
+            LivewireSwal::make($this)
+                ->success()
+                ->setParams([
+                    'title' => 'Success',
+                    'text' => 'Order created successfully',
+                    'footer' => 'Order ID: ' . $order->id,
+                    'emit' => 'redirectConfirmed'
+                ])
+                ->fireSwalEvent();
+
+                $this->reset([
+                    'customer_id',
+                    'status',
+                    'total',
+                    'showSaveButton'
+                ]);
+
+                $this->orderItems = collect();
+
+        } catch (\Exception $e) {
+            LivewireSwal::make($this)
+                ->error()
+                ->toast()
+                ->setParams([
+                    'title' => 'Error',
+                    'text' => 'An error occurred while creating the order',
+                    'footer' => $e->getMessage()
+                ])
+                ->fireSwalEvent();
+            return;
+        }
+    }
+
+    public function redirectConfirmed()
+    {
+        return redirect()->route('orders.show', ['order' => $this->createdOrder->id]);
+    }
+
     public function render()
     {
+        $this->setTotal();
+        $this->setShowButton();
         Debugbar::info($this->orderItems);
         return view('livewire.order-create');
     }

@@ -10,7 +10,7 @@
                 data-coreui-target="#offcanvasRight" aria-controls="offcanvasRight">
                 <i class="fa-solid fa-bag-shopping"></i>
                 <span class="top-0 position-absolute start-100 translate-middle badge rounded-pill bg-danger">
-                    {{  $this->total() }} {{ config('myconst.currency_symbol') }}
+                    {{ $this->total }} {{ config('myconst.currency_symbol') }}
                     <span class="visually-hidden"></span>
                 </span>
             </button>
@@ -56,8 +56,8 @@
         <div class="col-12 col-md-6">
             <div class="mb-4">
                 <label for="customer" class="form-label">Cliente</label>
-                <select class="form-select" id="customer" wire:model="customerId">
-                    <option value="" disabled>Seleziona Cliente</option>
+                <select class="form-select" id="customer" wire:model.live="customer_id">
+                    <option value="0" disabled>Seleziona Cliente</option>
                     @foreach ($customers as $customer)
                         <option value="{{ $customer->id }}">{{ $customer->full_name }}</option>
                     @endforeach
@@ -74,14 +74,16 @@
         </div>
     </div>
 
-    @livewire(
-        'product-list-create-order',
-        [
-            'searchString' => $searchProduct,
-            'orderItems' => $orderItems,
-        ],
-        key('product-list-create-order')
-    )
+    @if ($customer_id > 0)
+        @livewire(
+            'product-list-create-order',
+            [
+                'searchString' => $searchProduct,
+                'orderItems' => $orderItems,
+            ],
+            key('product-list-create-order')
+        )
+    @endif
 
 
     @if ($selectedProductId)
@@ -122,7 +124,8 @@
 
     @if ($showSaveButton)
         <div class="mt-4">
-            <button type="button" class="btn btn-success" wire:click="saveOrder">Salva Ordine</button>
+            <button type="button" class="text-white btn btn-success" wire:click="saveOrder">{{ __('create') }}
+                {{ __('order') }}</button>
         </div>
     @endif
 </div>

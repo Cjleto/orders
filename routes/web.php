@@ -13,6 +13,7 @@ use App\Http\Controllers\Web\UserController;
 use App\Http\Controllers\Web\RolesController;
 use App\Http\Controllers\Web\ProfileController;
 use App\Http\Controllers\Web\CustomerController;
+use App\Livewire\OrderShow;
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,23 +46,20 @@ Route::prefix('admin')->group(function () {
 
 });
 
-// CUSTOMERS
+
 Route::middleware('auth')->group(function () {
 
+    // Approccio con blade
     Route::resource('customers', CustomerController::class);
 
-});
 
-
-// Approccio con livewire
-Route::middleware('auth')->group(function () {
-
+    // Approccio con livewire
     Route::get('products', ProductIndex::class)->name('products.index');
     Route::get('products/show/{product}', ProductShow::class)->name('products.show');
     Route::get('products/create', ProductCreate::class)->name('products.create');
 
     Route::get('orders', OrderIndex::class)->name('orders.index');
-    Route::get('orders/show/{order}', fn() => dd('not implemented'))->name('orders.show');
+    Route::get('orders/show/{order}', OrderShow::class)->name('orders.show');
     Route::get('orders/create', OrderCreate::class)->name('orders.create');
 
 });

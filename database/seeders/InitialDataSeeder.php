@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Customer;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -14,13 +15,15 @@ class InitialDataSeeder extends Seeder
     public function run(): void
     {
 
-        $admin = User::factory()->admin()->create([
+        User::factory()->admin()->create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('Qwerty7-')
         ]);
 
-        $customers = Customer::factory()->count(10)->create();
+        Customer::factory()->count(10)->create();
+
+        Product::factory()->count(10)->create();
 
     }
 

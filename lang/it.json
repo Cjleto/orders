@@ -39,5 +39,11 @@
     "deleted_successfully": "Eliminato con successo",
     "created_successfully": "Creato con successo",
     "confirm_delete": "Sei sicuro di voler eliminare ",
-    "no_orders_found": "Nessun ordine trovato"
+    "no_orders_found": "Nessun ordine trovato",
+    "price": "Prezzo",
+    "quantity": "Quantità",
+    "total": "Totale",
+    "order_date": "Data dell'ordine",
+    "actions": "Azioni",
+    "create": "Crea"
 }

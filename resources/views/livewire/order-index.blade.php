@@ -54,10 +54,11 @@
                 <table class="table mt-2 table-striped table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">{{ __('Name') }}</th>
-                            <th scope="col">{{ __('Descrizione') }}</th>
-                            <th scope="col">{{ __('Prezzo') }}</th>
-                            <th scope="col">{{ __('Azioni') }}</th>
+                            <th scope="col">{{ __('id') }}</th>
+                            <th scope="col">{{ __('customer') }}</th>
+                            <th scope="col">{{ __('status') }}</th>
+                            <th scope="col">{{ __('price') }}</th>
+                            <th scope="col">{{ __('actions') }}</th>
                         </tr>
                     </thead>
                     <tbody >
@@ -65,14 +66,18 @@
                             <tr wire:key="order-{{ $order->id }}">
 
                                 <td>
-                                    <div class="fw-bold">{{ $order->id }} - {{ $order->name }}</div>
+                                    <div class="fw-bold">{{ $order->id }}</div>
                                 </td>
 
                                 <td>
-                                    <span class="text-muted fs-6">{{ $order->description }}</span>
+                                    <div class="fw-bold">{{ $order->customer->full_name }}</div>
                                 </td>
 
-                                <td>{{ $order->formatted_price }}</td>
+                                <td>
+                                    <span class="text-muted fs-6">{{ $order->status }}</span>
+                                </td>
+
+                                <td>{{ $order->total }}</td>
 
                                 <td>
                                     <div class="gap-2 d-flex align-items-center justify-content-start" wire:ignore.self>
@@ -84,7 +89,7 @@
                                                 <use xlink:href="{{ asset('icons/coreui.svg#cil-magnifying-glass') }}"></use>
                                             </svg>
                                         </a>
-                                        @livewire(
+                                        {{-- @livewire(
                                             'order-edit',
                                             [
                                                 'order' => $order,
@@ -97,7 +102,7 @@
                                                 'order' => $order,
                                             ],
                                             key('order-delete-' . $order->id)
-                                        )
+                                        ) --}}
 
                                     </div>
                                 </td>

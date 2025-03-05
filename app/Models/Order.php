@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Enums\OrderStatus;
+use Spatie\Activitylog\LogOptions;
 use Database\Factories\OrderFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
@@ -13,15 +15,24 @@ use Illuminate\Database\Eloquent\Attributes\UseFactory;
 class Order extends Model
 {
 
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuids, LogsActivity;
 
     protected $fillable = ['customer_id', 'status', 'total'];
+
+    protected $with = ['products','customer'];
 
     protected $casts = [
         'total' => 'float',
         'status' => OrderStatus::class
     ];
 
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logFillable();
+    }
+
+    /** RELATIONSHIPS */
     public function customer()
     {
         return $this->belongsTo(Customer::class);
@@ -32,5 +43,27 @@ class Order extends Model
         return $this->belongsToMany(Product::class, 'order_product')
             ->withPivot(['quantity', 'product_name', 'product_price'])
             ->withTimestamps();
+    }
+
+    public function items ()
+    {
+        return $this->hasMany(OrderProduct::class);
+    }
+
+    public function historySteps ()
+    {
+        return $this->hasMany(OrderHistoryStep::class);
+    }
+
+
+    /** ACCESSORS */
+    public function getFormattedTotalAttribute(): string
+    {
+        return number_format($this->total, 2, ',', '.') . ' ' . config('myconst.currency_symbol');
+    }
+
+    public function setTotalAttribute($value): void
+    {
+        $this->attributes['total'] = round($value, 2);
     }
 }

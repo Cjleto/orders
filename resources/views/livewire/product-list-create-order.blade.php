@@ -45,7 +45,7 @@
 
                                 <td>{{ $product->formatted_price }}</td>
 
-                                <td>{{ $product->is_in_stock }}</td>
+                                <td>{{ $product->stock }}</td>
 
                                 <td>
                                     {{ $this->orderItemQuantity($product) }}
