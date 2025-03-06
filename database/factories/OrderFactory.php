@@ -21,27 +21,6 @@ class OrderFactory extends Factory
         ];
     }
 
-
-    public function configure(): static
-    {
-        dd('configure');
-        return $this->afterCreating(function (Order $order) {
-            \Log::info('Order created:', ['order_id' => $order->id]);
-
-            $products = Product::inRandomOrder()->take(2)->get();
-            \Log::info('Products selected:', ['products' => $products]);
-
-            foreach ($products as $product) {
-                $order->products()->attach($product->id, [
-                    'quantity' => 5,
-                    'product_name' => $product->name,
-                    'product_price' => $product->price,
-                ]);
-            }
-            \Log::info('Products attached to order:', ['order_id' => $order->id]);
-        });
-    }
-
     public function randomCreateDate()
     {
         return $this->state([

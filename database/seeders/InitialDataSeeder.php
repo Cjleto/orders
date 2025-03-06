@@ -24,10 +24,20 @@ class InitialDataSeeder extends Seeder
 
         Customer::factory()->count(10)->create();
 
-        Product::factory()->count(10)->create();
+        $products = Product::factory()->count(10)->create();
 
-        Order::factory()->count(10)->create();
+        Order::factory(5)->create()->each(function ($order) {
+            // Prendi un numero random di prodotti (tra 1 e 4)
+            $products = \App\Models\Product::inRandomOrder()->take(rand(1, 4))->get();
 
+            // Associa i prodotti all'ordine con i dati della pivot
+            foreach ($products as $product) {
+                $order->products()->attach($product->id, [
+                    'quantity' => rand(1, 10), // Quantità casuale
+                    'product_name' => $product->name, // Nome dal prodotto
+                    'product_price' => $product->price, // Prezzo dal prodotto
+                ]);
+            }
+        });
     }
-
 }
