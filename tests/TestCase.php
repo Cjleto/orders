@@ -15,6 +15,6 @@ abstract class TestCase extends BaseTestCase
         // Disabilita eventi globalmente
         // Model::unsetEventDispatcher();
 
-        Context::add('enable_translation', false);
+
     }
 }

@@ -23,9 +23,11 @@ class OrderFactory extends Factory
 
     public function randomCreateDate()
     {
-        return $this->state([
-            'created_at' => $this->faker->dateTimeBetween('-1 week', 'now'),
-        ]);
+        return $this->state(function (array $attributes) {
+            return [
+                'created_at' => $this->faker->dateTimeBetween('-1 week', 'now'),
+            ];
+        });
     }
 
     public function in_elaborazione()

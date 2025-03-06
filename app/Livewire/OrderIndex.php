@@ -2,16 +2,18 @@
 
 namespace App\Livewire;
 
+use Debugbar;
 use App\Models\Order;
 use Livewire\Component;
+use App\Enums\OrderStatus;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use App\Helpers\LivewireSwal;
 use Livewire\Attributes\Lazy;
+use App\Services\OrderService;
 use Livewire\Attributes\Computed;
 use Illuminate\Contracts\View\View;
 use App\Repositories\Contracts\OrderRepositoryContract;
-use Debugbar;
 
 #[Lazy]
 class OrderIndex extends Component
@@ -22,16 +24,27 @@ class OrderIndex extends Component
 
     public $paginationCount = 15;
 
+    public array $statuses = [];
+    public string $filteredStatus = '';
+
     public function mount()
     {
         if (!empty($this->search)) {
             $this->updatedSearch($this->search);
         }
+
+        $this->statuses = OrderStatus::cases();
     }
 
     public function updatedSearch($value)
     {
-        $this->resetPage(); // Important: Reset pagination when search changes
+        $this->resetPage();
+    }
+
+    public function filterStatus($value)
+    {
+        $this->filteredStatus = $value;
+        $this->resetPage();
     }
 
     public function updatedPaginationCount(int $value): void
@@ -45,15 +58,15 @@ class OrderIndex extends Component
     public function orders()
     {
 
+        $orderService = app()->make(OrderService::class);
         Debugbar::info('orders requested');
 
-        /** @var OrderRepository $orderRepository */
-        $orderRepository = app(OrderRepositoryContract::class);
-        $orders =  $orderRepository->searchByFieldPaginated(
-            search: $this->search,
-            field: 'id',
-            paginationCount: $this->paginationCount
-        );
+        $searchData = [
+            'id' => $this->search,
+            'status' => $this->filteredStatus,
+        ];
+
+        $orders = $orderService->getOrderIndexData($searchData);
 
         return $orders;
     }

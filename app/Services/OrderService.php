@@ -57,5 +57,10 @@ class OrderService
         return $this->orderRepository->getOrdersBetweenDates($start, $end);
     }
 
+    public function getOrderIndexData(array $searchData)
+    {
+        return $this->orderRepository->getOrderIndexData($searchData);
+    }
+
 
 }

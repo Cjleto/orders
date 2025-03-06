@@ -26,7 +26,7 @@ class InitialDataSeeder extends Seeder
 
         $products = Product::factory()->count(10)->create();
 
-        Order::factory(5)->create()->each(function ($order) {
+        Order::factory()->randomCreateDate()->count(10)->create()->each(function ($order) {
             // Prendi un numero random di prodotti (tra 1 e 4)
             $products = \App\Models\Product::inRandomOrder()->take(rand(1, 4))->get();
 

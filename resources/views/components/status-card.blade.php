@@ -1,5 +1,5 @@
-<div class="col-4">
-    <div class="text-white card {{ $color }}">
+
+    <div class="text-white card {{ $color }} flex-grow-1">
         <div class="text-center card-body">
             <div class="d-flex justify-content-between">
                 <div class="gap-3 d-flex">
@@ -12,4 +12,4 @@
             </div>
         </div>
     </div>
-</div>
+

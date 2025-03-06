@@ -23,7 +23,7 @@
 
                 <div class="gap-2 d-flex justify-content-end align-items-center">
                     <div>
-                        <input type="text" class="form-control" placeholder="{{ __('Search') }}"
+                        <input type="text" class="form-control" placeholder="{{ __('Search') }} Id"
                             wire:model.live.debounce.300ms="search">
                     </div>
                     <div>
@@ -51,6 +51,18 @@
 
             <div class="card-body" style="overflow-x: auto;" wire:loading.remove>
 
+                <div class="alert alert-light">
+                    <div class="d-flex justify-content-around">
+                        @foreach($statuses as $status)
+                            <div @class([
+                                "btn btn-sm btn-outline-primary ",
+                                "btn-primary text-white" => ($status->value == $filteredStatus)
+                            ]) wire:click="filterStatus('{{ $status }}')" >{{ $status }}</div>
+                        @endforeach
+                    </div>
+                </div>
+
+
                 <table class="table mt-2 table-striped table-hover">
                     <thead>
                         <tr>
@@ -58,6 +70,7 @@
                             <th scope="col">{{ __('customer') }}</th>
                             <th scope="col">{{ __('status') }}</th>
                             <th scope="col">{{ __('price') }}</th>
+                            <th scope="col">{{ __('created_at') }}</th>
                             <th scope="col">{{ __('actions') }}</th>
                         </tr>
                     </thead>
@@ -78,6 +91,10 @@
                                 </td>
 
                                 <td>{{ $order->total }}</td>
+
+                                <td>
+                                    <div class="text-muted fs-6">{{ $order->created_at->format('Y-m-d') }}</div>
+                                </td>
 
                                 <td>
                                     <div class="gap-2 d-flex align-items-center justify-content-start" wire:ignore.self>

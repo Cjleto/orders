@@ -48,12 +48,7 @@ class UserController extends Controller
         {
             $validated = $request->validated();
 
-            $userStoreDTO = new UserStoreDTO(
-                name: $validated['name'],
-                email: $validated['email'],
-                password: $validated['password'],
-                role: $validated['role']
-            );
+            $userStoreDTO = UserStoreDTO::fromRequest($validated);
 
             $user = $this->userService->store($userStoreDTO);
 
