@@ -52,4 +52,10 @@ class OrderService
         return $this->orderRepository->delete($id);
     }
 
+    public function getOrdersBetweenDates(string $start, string $end): Collection
+    {
+        return $this->orderRepository->getOrdersBetweenDates($start, $end);
+    }
+
+
 }

@@ -45,5 +45,8 @@
     "total": "Totale",
     "order_date": "Data dell'ordine",
     "actions": "Azioni",
-    "create": "Crea"
+    "create": "Crea",
+    "dashboard_select_dates": "Seleziona le date",
+    "orders_evolution": "Evoluzione degli incassi",
+    "orders_per_day": "Ordini al giorno"
 }

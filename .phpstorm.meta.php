@@ -14,6 +14,7 @@ namespace PHPSTORM_META {
     override(new \Illuminate\Contracts\Container\Container, map([
         '' => '@',
             'App\Repositories\Contracts\CustomerRepositoryContract' => \App\Repositories\Eloquent\CustomerRepository::class,
+            'App\Repositories\Contracts\OrderRepositoryContract' => \App\Repositories\Eloquent\OrderRepository::class,
             'App\Repositories\Contracts\ProductRepositoryContract' => \App\Repositories\Eloquent\ProductRepository::class,
             'App\Repositories\Contracts\RoleRepositoryContract' => \App\Repositories\Eloquent\RoleRepository::class,
             'App\Repositories\Contracts\UserRepositoryContract' => \App\Repositories\Eloquent\UserRepository::class,
@@ -92,6 +93,7 @@ namespace PHPSTORM_META {
     override(\Illuminate\Container\Container::makeWith(0), map([
         '' => '@',
             'App\Repositories\Contracts\CustomerRepositoryContract' => \App\Repositories\Eloquent\CustomerRepository::class,
+            'App\Repositories\Contracts\OrderRepositoryContract' => \App\Repositories\Eloquent\OrderRepository::class,
             'App\Repositories\Contracts\ProductRepositoryContract' => \App\Repositories\Eloquent\ProductRepository::class,
             'App\Repositories\Contracts\RoleRepositoryContract' => \App\Repositories\Eloquent\RoleRepository::class,
             'App\Repositories\Contracts\UserRepositoryContract' => \App\Repositories\Eloquent\UserRepository::class,
@@ -170,6 +172,7 @@ namespace PHPSTORM_META {
     override(\Illuminate\Contracts\Container\Container::get(0), map([
         '' => '@',
             'App\Repositories\Contracts\CustomerRepositoryContract' => \App\Repositories\Eloquent\CustomerRepository::class,
+            'App\Repositories\Contracts\OrderRepositoryContract' => \App\Repositories\Eloquent\OrderRepository::class,
             'App\Repositories\Contracts\ProductRepositoryContract' => \App\Repositories\Eloquent\ProductRepository::class,
             'App\Repositories\Contracts\RoleRepositoryContract' => \App\Repositories\Eloquent\RoleRepository::class,
             'App\Repositories\Contracts\UserRepositoryContract' => \App\Repositories\Eloquent\UserRepository::class,
@@ -248,6 +251,7 @@ namespace PHPSTORM_META {
     override(\Illuminate\Contracts\Container\Container::make(0), map([
         '' => '@',
             'App\Repositories\Contracts\CustomerRepositoryContract' => \App\Repositories\Eloquent\CustomerRepository::class,
+            'App\Repositories\Contracts\OrderRepositoryContract' => \App\Repositories\Eloquent\OrderRepository::class,
             'App\Repositories\Contracts\ProductRepositoryContract' => \App\Repositories\Eloquent\ProductRepository::class,
             'App\Repositories\Contracts\RoleRepositoryContract' => \App\Repositories\Eloquent\RoleRepository::class,
             'App\Repositories\Contracts\UserRepositoryContract' => \App\Repositories\Eloquent\UserRepository::class,
@@ -326,6 +330,7 @@ namespace PHPSTORM_META {
     override(\Illuminate\Contracts\Container\Container::makeWith(0), map([
         '' => '@',
             'App\Repositories\Contracts\CustomerRepositoryContract' => \App\Repositories\Eloquent\CustomerRepository::class,
+            'App\Repositories\Contracts\OrderRepositoryContract' => \App\Repositories\Eloquent\OrderRepository::class,
             'App\Repositories\Contracts\ProductRepositoryContract' => \App\Repositories\Eloquent\ProductRepository::class,
             'App\Repositories\Contracts\RoleRepositoryContract' => \App\Repositories\Eloquent\RoleRepository::class,
             'App\Repositories\Contracts\UserRepositoryContract' => \App\Repositories\Eloquent\UserRepository::class,
@@ -404,6 +409,7 @@ namespace PHPSTORM_META {
     override(\App::get(0), map([
         '' => '@',
             'App\Repositories\Contracts\CustomerRepositoryContract' => \App\Repositories\Eloquent\CustomerRepository::class,
+            'App\Repositories\Contracts\OrderRepositoryContract' => \App\Repositories\Eloquent\OrderRepository::class,
             'App\Repositories\Contracts\ProductRepositoryContract' => \App\Repositories\Eloquent\ProductRepository::class,
             'App\Repositories\Contracts\RoleRepositoryContract' => \App\Repositories\Eloquent\RoleRepository::class,
             'App\Repositories\Contracts\UserRepositoryContract' => \App\Repositories\Eloquent\UserRepository::class,
@@ -482,6 +488,7 @@ namespace PHPSTORM_META {
     override(\App::make(0), map([
         '' => '@',
             'App\Repositories\Contracts\CustomerRepositoryContract' => \App\Repositories\Eloquent\CustomerRepository::class,
+            'App\Repositories\Contracts\OrderRepositoryContract' => \App\Repositories\Eloquent\OrderRepository::class,
             'App\Repositories\Contracts\ProductRepositoryContract' => \App\Repositories\Eloquent\ProductRepository::class,
             'App\Repositories\Contracts\RoleRepositoryContract' => \App\Repositories\Eloquent\RoleRepository::class,
             'App\Repositories\Contracts\UserRepositoryContract' => \App\Repositories\Eloquent\UserRepository::class,
@@ -560,6 +567,7 @@ namespace PHPSTORM_META {
     override(\App::makeWith(0), map([
         '' => '@',
             'App\Repositories\Contracts\CustomerRepositoryContract' => \App\Repositories\Eloquent\CustomerRepository::class,
+            'App\Repositories\Contracts\OrderRepositoryContract' => \App\Repositories\Eloquent\OrderRepository::class,
             'App\Repositories\Contracts\ProductRepositoryContract' => \App\Repositories\Eloquent\ProductRepository::class,
             'App\Repositories\Contracts\RoleRepositoryContract' => \App\Repositories\Eloquent\RoleRepository::class,
             'App\Repositories\Contracts\UserRepositoryContract' => \App\Repositories\Eloquent\UserRepository::class,
@@ -638,6 +646,7 @@ namespace PHPSTORM_META {
     override(\app(0), map([
         '' => '@',
             'App\Repositories\Contracts\CustomerRepositoryContract' => \App\Repositories\Eloquent\CustomerRepository::class,
+            'App\Repositories\Contracts\OrderRepositoryContract' => \App\Repositories\Eloquent\OrderRepository::class,
             'App\Repositories\Contracts\ProductRepositoryContract' => \App\Repositories\Eloquent\ProductRepository::class,
             'App\Repositories\Contracts\RoleRepositoryContract' => \App\Repositories\Eloquent\RoleRepository::class,
             'App\Repositories\Contracts\UserRepositoryContract' => \App\Repositories\Eloquent\UserRepository::class,
@@ -716,6 +725,7 @@ namespace PHPSTORM_META {
     override(\resolve(0), map([
         '' => '@',
             'App\Repositories\Contracts\CustomerRepositoryContract' => \App\Repositories\Eloquent\CustomerRepository::class,
+            'App\Repositories\Contracts\OrderRepositoryContract' => \App\Repositories\Eloquent\OrderRepository::class,
             'App\Repositories\Contracts\ProductRepositoryContract' => \App\Repositories\Eloquent\ProductRepository::class,
             'App\Repositories\Contracts\RoleRepositoryContract' => \App\Repositories\Eloquent\RoleRepository::class,
             'App\Repositories\Contracts\UserRepositoryContract' => \App\Repositories\Eloquent\UserRepository::class,
@@ -794,6 +804,7 @@ namespace PHPSTORM_META {
     override(\Psr\Container\ContainerInterface::get(0), map([
         '' => '@',
             'App\Repositories\Contracts\CustomerRepositoryContract' => \App\Repositories\Eloquent\CustomerRepository::class,
+            'App\Repositories\Contracts\OrderRepositoryContract' => \App\Repositories\Eloquent\OrderRepository::class,
             'App\Repositories\Contracts\ProductRepositoryContract' => \App\Repositories\Eloquent\ProductRepository::class,
             'App\Repositories\Contracts\RoleRepositoryContract' => \App\Repositories\Eloquent\RoleRepository::class,
             'App\Repositories\Contracts\UserRepositoryContract' => \App\Repositories\Eloquent\UserRepository::class,
@@ -3045,30 +3056,32 @@ namespace PHPSTORM_META {
 'roles.update','users.index','users.create','users.store','users.edit',
 'users.update','users.destroy','customers.index','customers.create','customers.store',
 'customers.show','customers.edit','customers.update','customers.destroy','products.index',
-'products.show','products.create',);
+'products.show','products.create','orders.index','orders.show','orders.create',);
         registerArgumentsSet('views', 
 'about','auth.login','auth.passwords.confirm','auth.passwords.email','auth.passwords.reset',
-'auth.profile','auth.register','auth.verify','components.common.badge-no-results','components.common.product-icon',
-'customers.create','customers.edit','customers.index','customers.show','errors.419',
-'errors.minimal','errors.settings.missing','home','home_admin','layouts.app',
-'layouts.guest','layouts.navigation','livewire.product-create','livewire.product-edit','livewire.product-index',
-'livewire.product-show','livewire::bootstrap','livewire::simple-bootstrap','livewire::simple-tailwind','livewire::tailwind',
-'login-link::loginLink','login-link::loginLinkButton','mail.test','preview','roles.create',
-'roles.edit','roles.index','sweetalert::alert','users.create','users.edit',
-'users.index','vendor.livewire.bootstrap','vendor.livewire.simple-bootstrap','vendor.livewire.simple-tailwind','vendor.livewire.tailwind',
-'vendor.login-link.loginLink','vendor.login-link.loginLinkButton','vendor.sweetalert.alert','volt-livewire::product-create','volt-livewire::product-edit',
-'volt-livewire::product-index','volt-livewire::product-show','welcome','laravel-exceptions-renderer::components.card','laravel-exceptions-renderer::components.context',
-'laravel-exceptions-renderer::components.editor','laravel-exceptions-renderer::components.header','laravel-exceptions-renderer::components.icons.chevron-down','laravel-exceptions-renderer::components.icons.chevron-up','laravel-exceptions-renderer::components.icons.computer-desktop',
-'laravel-exceptions-renderer::components.icons.moon','laravel-exceptions-renderer::components.icons.sun','laravel-exceptions-renderer::components.layout','laravel-exceptions-renderer::components.navigation','laravel-exceptions-renderer::components.theme-switcher',
-'laravel-exceptions-renderer::components.trace','laravel-exceptions-renderer::components.trace-and-editor','laravel-exceptions-renderer::show','laravel-exceptions::401','laravel-exceptions::402',
-'laravel-exceptions::403','laravel-exceptions::404','laravel-exceptions::419','laravel-exceptions::429','laravel-exceptions::500',
-'laravel-exceptions::503','laravel-exceptions::layout','laravel-exceptions::minimal','livewire-charts::livewire-area-chart','livewire-charts::livewire-column-chart',
-'livewire-charts::livewire-line-chart','livewire-charts::livewire-multi-column-chart','livewire-charts::livewire-multi-line-chart','livewire-charts::livewire-pie-chart','livewire-charts::livewire-radar-chart',
-'livewire-charts::livewire-radial-chart','livewire-charts::livewire-tree-map-chart','livewire::bootstrap','livewire::simple-bootstrap','livewire::simple-tailwind',
-'livewire::tailwind','log-viewer::index','login-link::loginLink','login-link::loginLinkButton','media-library::image',
-'media-library::placeholderSvg','media-library::responsiveImage','media-library::responsiveImageWithPlaceholder','notifications::email','pagination::bootstrap-4',
-'pagination::bootstrap-5','pagination::default','pagination::semantic-ui','pagination::simple-bootstrap-4','pagination::simple-bootstrap-5',
-'pagination::simple-default','pagination::simple-tailwind','pagination::tailwind','sweetalert::alert',);
+'auth.profile','auth.register','auth.verify','components.common.badge-no-results','components.common.order-icon',
+'components.common.product-icon','customers.create','customers.edit','customers.index','customers.show',
+'errors.419','errors.minimal','errors.settings.missing','home','home_admin',
+'layouts.app','layouts.guest','layouts.navigation','livewire.order-create','livewire.order-index',
+'livewire.order-show','livewire.product-create','livewire.product-delete','livewire.product-edit','livewire.product-index',
+'livewire.product-list-create-order','livewire.product-show','livewire::bootstrap','livewire::simple-bootstrap','livewire::simple-tailwind',
+'livewire::tailwind','login-link::loginLink','login-link::loginLinkButton','mail.test','preview',
+'roles.create','roles.edit','roles.index','sweetalert::alert','users.create',
+'users.edit','users.index','vendor.livewire.bootstrap','vendor.livewire.simple-bootstrap','vendor.livewire.simple-tailwind',
+'vendor.livewire.tailwind','vendor.login-link.loginLink','vendor.login-link.loginLinkButton','vendor.sweetalert.alert','volt-livewire::order-create',
+'volt-livewire::order-index','volt-livewire::order-show','volt-livewire::product-create','volt-livewire::product-delete','volt-livewire::product-edit',
+'volt-livewire::product-index','volt-livewire::product-list-create-order','volt-livewire::product-show','welcome','laravel-exceptions-renderer::components.card',
+'laravel-exceptions-renderer::components.context','laravel-exceptions-renderer::components.editor','laravel-exceptions-renderer::components.header','laravel-exceptions-renderer::components.icons.chevron-down','laravel-exceptions-renderer::components.icons.chevron-up',
+'laravel-exceptions-renderer::components.icons.computer-desktop','laravel-exceptions-renderer::components.icons.moon','laravel-exceptions-renderer::components.icons.sun','laravel-exceptions-renderer::components.layout','laravel-exceptions-renderer::components.navigation',
+'laravel-exceptions-renderer::components.theme-switcher','laravel-exceptions-renderer::components.trace','laravel-exceptions-renderer::components.trace-and-editor','laravel-exceptions-renderer::show','laravel-exceptions::401',
+'laravel-exceptions::402','laravel-exceptions::403','laravel-exceptions::404','laravel-exceptions::419','laravel-exceptions::429',
+'laravel-exceptions::500','laravel-exceptions::503','laravel-exceptions::layout','laravel-exceptions::minimal','livewire-charts::livewire-area-chart',
+'livewire-charts::livewire-column-chart','livewire-charts::livewire-line-chart','livewire-charts::livewire-multi-column-chart','livewire-charts::livewire-multi-line-chart','livewire-charts::livewire-pie-chart',
+'livewire-charts::livewire-radar-chart','livewire-charts::livewire-radial-chart','livewire-charts::livewire-tree-map-chart','livewire::bootstrap','livewire::simple-bootstrap',
+'livewire::simple-tailwind','livewire::tailwind','log-viewer::index','login-link::loginLink','login-link::loginLinkButton',
+'media-library::image','media-library::placeholderSvg','media-library::responsiveImage','media-library::responsiveImageWithPlaceholder','notifications::email',
+'pagination::bootstrap-4','pagination::bootstrap-5','pagination::default','pagination::semantic-ui','pagination::simple-bootstrap-4',
+'pagination::simple-bootstrap-5','pagination::simple-default','pagination::simple-tailwind','pagination::tailwind','sweetalert::alert',);
         registerArgumentsSet('translations', 
 'auth.failed','auth.password','auth.throttle','pagination.previous','pagination.next',
 'passwords.reset','passwords.sent','passwords.throttled','passwords.token','passwords.user',
@@ -3098,8 +3111,7 @@ namespace PHPSTORM_META {
 'validation.required_without','validation.required_without_all','validation.same','validation.size.array','validation.size.file',
 'validation.size.numeric','validation.size.string','validation.starts_with','validation.string','validation.timezone',
 'validation.unique','validation.uploaded','validation.uppercase','validation.url','validation.ulid',
-'validation.uuid','validation.custom.attribute-name.rule-name','validation.validation_invitation','en.0','product.0',
-'it.0',);
+'validation.uuid','validation.custom.attribute-name.rule-name','validation.validation_invitation','en.0','it.0',);
         registerArgumentsSet('env', 
 'APP_NAME','APP_ENV','APP_KEY','APP_DEBUG','APP_TIMEZONE',
 'APP_URL','APP_PORT','APP_SERVICE','APP_LOCALE','APP_FALLBACK_LOCALE',

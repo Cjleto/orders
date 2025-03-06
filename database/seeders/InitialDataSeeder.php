@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Customer;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -24,6 +25,8 @@ class InitialDataSeeder extends Seeder
         Customer::factory()->count(10)->create();
 
         Product::factory()->count(10)->create();
+
+        Order::factory()->count(10)->create();
 
     }
 

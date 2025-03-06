@@ -16,4 +16,13 @@ enum OrderStatus: string
             self::CONSEGNATO,
         ];
     }
+
+    public static function toArray (): array
+    {
+        return [
+            self::IN_ELABORAZIONE => 'In elaborazione',
+            self::SPEDITO => 'Spedito',
+            self::CONSEGNATO => 'Consegnato',
+        ];
+    }
 }

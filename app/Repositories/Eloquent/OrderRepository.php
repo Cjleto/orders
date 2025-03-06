@@ -2,8 +2,9 @@
 
 namespace App\Repositories\Eloquent;
 
+use Carbon\Carbon;
 use App\Models\Order;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use App\Repositories\Contracts\OrderRepositoryContract;
 
 class OrderRepository extends BaseRepository implements OrderRepositoryContract
@@ -13,5 +14,14 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
     {
         parent::__construct($model);
     }
+
+    public function getOrdersBetweenDates(string $start, string $end): Collection
+    {
+        return $this->model->whereBetween('created_at', [
+            Carbon::parse($start)->startOfDay(),
+            Carbon::parse($end)->endOfDay()
+        ])->get();
+    }
+
 
 }
