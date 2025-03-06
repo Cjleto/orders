@@ -2,10 +2,9 @@
 
 namespace App\Livewire;
 
-use App\Models\Order;
-use App\Models\Product;
-use Livewire\Component;
 use App\Enums\OrderStatus;
+use App\Models\Order;
+use Livewire\Component;
 use App\Services\OrderService;
 use Illuminate\Support\Collection;
 use Barryvdh\Debugbar\Facades\Debugbar;
@@ -23,6 +22,7 @@ class DashboardContainer extends Component
     public string $currency;
     public array $statuses;
     public array $countByStatus = [];
+    public string $totalRevenue = '0.00';
 
     public $colors = [
         '#f6ad55',
@@ -37,20 +37,9 @@ class DashboardContainer extends Component
 
     public function mount()
     {
-
-        $order = Order::factory()->create();
-        $products = Product::inRandomOrder()->take(2)->get();
-
-        foreach ($products as $product) {
-            $order->products()->attach($product->id, [
-                'quantity' => 5,
-                'product_name' => $product->name,
-                'product_price' => $product->price,
-            ]);
-        }
-dd($order->products()->count());
+        $this->startingData = collect();
         $this->statuses = OrderStatus::cases();
-        $this->startDate = now()->subDays(7)->format('Y-m-d');
+        $this->startDate = now()->subDays(30)->format('Y-m-d');
         $this->currency = config('myconst.currency_symbol');
         $this->endDate = now()->format('Y-m-d');
         $this->startingData = $this->getData();
@@ -58,9 +47,12 @@ dd($order->products()->count());
 
     public function updatedStartDate($value)
     {
-        Debugbar::info('updatedStartDate1 ' . $value);
         $this->startingData = $this->getData();
-        Debugbar::info('updatedStartDate2 '. count($this->startingData));
+    }
+
+    public function updatedEndDate($value)
+    {
+        $this->startingData = $this->getData();
     }
 
 
@@ -70,6 +62,7 @@ dd($order->products()->count());
         $this->firstRun = false;
 
         $this->getOrderByStatus();
+        $this->getRevenue();
 
         return view('livewire.dashboard-container')
             ->with([
@@ -85,6 +78,12 @@ dd($order->products()->count());
         $records = $orderService->getOrdersBetweenDates($this->startDate, $this->endDate);
         Debugbar::info('getData2 '. $this->startDate . ' ' . $this->endDate. ' ' . count($records));
         return $records;
+    }
+
+    private function getRevenue()
+    {
+        $total = $this->startingData->sum('total');
+        $this->totalRevenue = number_format($total, 2);
     }
 
     private function getOrdersAmountForDateRange()
@@ -172,8 +171,8 @@ dd($order->products()->count());
         });
 
         foreach ($this->statuses as $status) {
-            if (!$localData->has($status->value)) {
-                $localData[$status->value] = 0;
+            if (!$localData->has($status->name)) {
+                $localData[$status->name] = 0;
             }
         }
 

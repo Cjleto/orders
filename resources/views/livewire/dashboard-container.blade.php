@@ -7,10 +7,10 @@
         </div>
     </div>
 
-    <div class="mb-3 row">
+    <div class="flex-wrap gap-2 mb-3 d-flex justify-content-around">
         <x-status-card
             title="In Elaborazione"
-            count="{{ $countByStatus['in_elaborazione'] ?? 0 }}"
+            count="{{ $countByStatus['in elaborazione'] ?? 0 }}"
             color="bg-primary"
             icon="fas fa-cogs"
         />
@@ -24,6 +24,12 @@
             title="Consegnato"
             count="{{ $countByStatus['consegnato'] ?? 0 }}"
             color="bg-success"
+            icon="fas fa-box-open"
+        />
+        <x-status-card
+            title="Revenue"
+            count="{{ $totalRevenue }}"
+            color="bg-danger"
             icon="fas fa-box-open"
         />
     </div>
