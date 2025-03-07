@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\User;
-use Spatie\Permission\Models\Role;
 use Database\Seeders\PermissionsRolesSeeder;
 
 it('can change password', function () {
@@ -21,9 +20,9 @@ it('can change password', function () {
             'role' => $user->roles->first()->name,
         ]);
 
-        $response->assertStatus(302);
+    $response->assertStatus(302);
 
-        $this->assertTrue(Hash::check('Newpassword2024!', $user->fresh()->password));
+    $this->assertTrue(Hash::check('Newpassword2024!', $user->fresh()->password));
 });
 
 it('fails validation when password is invalid', function () {

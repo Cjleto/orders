@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Web;
 
-use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {

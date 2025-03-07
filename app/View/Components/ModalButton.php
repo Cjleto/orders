@@ -2,8 +2,6 @@
 
 namespace App\View\Components;
 
-use Closure;
-use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class ModalButton extends Component
@@ -12,8 +10,8 @@ class ModalButton extends Component
         public string $modalId,
         public string $class,
         public string $modalTitle,
-        public ?string $modalClass = null,
-        public ?string $modalDialog = null,
+        public ?string $modalClass,
+        public ?string $modalDialog,
         public string $icon,
         public string $body = '',
         public string $footerClass = '',

@@ -1,13 +1,11 @@
 <?php
 
-use App\Models\Product;
-use App\Models\Customer;
-use Illuminate\Http\Response;
 use App\DTO\CustomerUpdateDTO;
-use App\Services\CustomerService;
-use App\Http\Resources\ProductResource;
 use App\Http\Resources\CustomerResource;
+use App\Models\Customer;
+use App\Services\CustomerService;
 use Database\Seeders\PermissionsRolesSeeder;
+use Illuminate\Http\Response;
 
 beforeEach(function () {
 
@@ -62,8 +60,6 @@ it('can store a customer', function () {
 it('can show a customer', function () {
     $customer = Customer::factory()->create();
 
-
-
     $response = $this->getJson(route('api.customers.show', $customer->id));
 
     // Verifica che la risposta sia corretta
@@ -90,9 +86,9 @@ it('can update a customer', function () {
             // Aggiorna il customer con i dati del DTO e salva nel database
             $customer->fill($dto->toArray());
             $customer->save(); // Salva nel database
+
             return $customer; // Restituisce l'oggetto aggiornato
         });
-
 
     $response = $this->putJson(route('api.customers.update', $customer->id), $dto->toArray());
 
@@ -107,7 +103,7 @@ it('can delete a customer', function () {
     $this->customerService
         ->shouldReceive('delete')
         ->once()
-        ->andReturnUsing(fn($id) => Customer::destroy($id));
+        ->andReturnUsing(fn ($id) => Customer::destroy($id));
 
     $response = $this->deleteJson(route('api.customers.destroy', $customer->id));
 

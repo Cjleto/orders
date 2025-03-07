@@ -5,9 +5,13 @@ namespace App\DTO;
 class UserUpdateDTO
 {
     public string $name;
+
     public string $email;
+
     public ?string $password;
+
     public string $role;
+
     public int $userId;
 
     public function __construct(string $name, string $email, ?string $password, string $role, int $userId)

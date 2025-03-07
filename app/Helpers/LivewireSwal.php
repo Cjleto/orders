@@ -2,13 +2,10 @@
 
 namespace App\Helpers;
 
-use Barryvdh\Debugbar\Twig\Extension\Debug;
-use Debugbar;
 use Livewire\Component;
 
 class LivewireSwal
 {
-
     private const COMMON_PARAMS = [
         'position' => 'center',
         'toast' => false,
@@ -16,6 +13,7 @@ class LivewireSwal
     ];
 
     private Component $component;
+
     public $params;
 
     public function __construct(Component $component)
@@ -126,7 +124,4 @@ class LivewireSwal
     {
         $this->component->dispatch('swal:modal', $this->params);
     }
-
 }
-
-

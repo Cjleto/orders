@@ -19,7 +19,7 @@ class InitialDataSeeder extends Seeder
         User::factory()->admin()->create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
-            'password' => bcrypt('Qwerty7-')
+            'password' => bcrypt('Qwerty7-'),
         ]);
 
         Customer::factory()->count(10)->create();

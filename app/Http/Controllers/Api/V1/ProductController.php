@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\Product;
 use App\DTO\ProductStoreDTO;
-use Illuminate\Http\Request;
 use App\DTO\ProductUpdateDTO;
-use App\Services\ProductService;
-use App\Http\Requests\ProductRequest;
 use App\Http\Controllers\ApiController;
+use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
+use App\Models\Product;
+use App\Services\ProductService;
+use Illuminate\Http\Request;
 
 class ProductController extends ApiController
 {
-
     public function __construct(
         protected ProductService $productService
     ) {}
@@ -21,6 +20,7 @@ class ProductController extends ApiController
     public function index()
     {
         $products = $this->productService->getWithSortingAndIncludes();
+
         return ProductResource::collection($products);
     }
 
@@ -29,6 +29,7 @@ class ProductController extends ApiController
         $validated = $request->validated();
         $dto = ProductStoreDTO::fromRequest($validated);
         $customer = $this->productService->create($dto);
+
         return $this->success(new ProductResource($customer), 201);
     }
 
@@ -51,6 +52,7 @@ class ProductController extends ApiController
     public function destroy(Product $product)
     {
         $this->productService->delete($product);
+
         return $this->success();
     }
 }

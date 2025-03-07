@@ -11,5 +11,4 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryCon
     {
         parent::__construct($model);
     }
-
 }

@@ -2,7 +2,4 @@
 
 namespace App\Repositories\Contracts;
 
-interface RoleRepositoryContract
-{
-
-}
+interface RoleRepositoryContract {}

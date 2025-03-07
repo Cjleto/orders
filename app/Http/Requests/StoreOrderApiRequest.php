@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreOrderApiRequest extends FormRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -18,7 +17,7 @@ class StoreOrderApiRequest extends FormRequest
             'customer_id' => ['required', 'integer', 'exists:customers,id'],
             'products' => 'required|array',
             'products.*.product_id' => 'required|exists:products,id',
-            'products.*.quantity' => 'required|integer|min:1'
+            'products.*.quantity' => 'required|integer|min:1',
         ];
     }
 }

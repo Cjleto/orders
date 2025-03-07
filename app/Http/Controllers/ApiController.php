@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Traits\ApiResponses;
+use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
-
     use ApiResponses;
-
 
     protected function loadIncludes(Request $request, $model)
     {

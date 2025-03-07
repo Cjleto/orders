@@ -2,10 +2,10 @@
 
 namespace App\Actions\Product;
 
-use App\Models\Product;
 use App\DTO\ProductupdateDTO;
-use Illuminate\Support\Facades\DB;
+use App\Models\Product;
 use App\Repositories\Contracts\ProductRepositoryContract;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property ProductRepository productRepository

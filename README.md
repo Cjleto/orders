@@ -125,12 +125,12 @@ Cosa inseriscono i seeder:
 
 ## Test
 - Esegui i test `./vendor/bin/sail artisan test` (`--parallel` processo più veloce)
+- Verifica lo stile del codice: `./vendor/bin/sail php ./vendor/bin/pint --test`
 
 ## Da fare
 - Genera la documentazione API usando il comando: `./vendor/bin/sail artisan scribe:generate`
 - Accedi alla documentazione API generata su `http://localhost:${APP_PORT}/docs`
 - Esegui l'analisi del codice statico: `./vendor/bin/sail php ./vendor/bin/phpstan analyse --memory-limit=2G`
-- Verifica lo stile del codice: `./vendor/bin/sail php ./vendor/bin/pint --test`
 - Estendere l'utilizzo dei metodi in cache
 - Aggiungere altri unit e feature test
 - Integrare workflow github per runnare i test in fase di pr

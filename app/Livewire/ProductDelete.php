@@ -4,8 +4,8 @@ namespace App\Livewire;
 
 use App\Helpers\LivewireSwal;
 use App\Models\Product;
-use Livewire\Component;
 use App\Services\ProductService;
+use Livewire\Component;
 
 class ProductDelete extends Component
 {
@@ -23,8 +23,8 @@ class ProductDelete extends Component
         LivewireSwal::make($this)
             ->success()
             ->setParams([
-                'title' => trans('success') . "!",
-                'text' => trans('product') . ' ' . trans('deleted'),
+                'title' => trans('success').'!',
+                'text' => trans('product').' '.trans('deleted'),
             ])
             ->fireSwalEvent();
     }

@@ -8,7 +8,7 @@ enum OrderStatus: string
     case SPEDITO = 'spedito';
     case CONSEGNATO = 'consegnato';
 
-    public static function all (): array
+    public static function all(): array
     {
         return [
             self::IN_ELABORAZIONE,
@@ -17,7 +17,7 @@ enum OrderStatus: string
         ];
     }
 
-    public static function toArray (): array
+    public static function toArray(): array
     {
         return [
             self::IN_ELABORAZIONE => 'In elaborazione',

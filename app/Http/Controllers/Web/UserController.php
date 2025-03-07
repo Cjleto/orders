@@ -2,30 +2,28 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Models\User;
 use App\DTO\UserStoreDTO;
-use Illuminate\View\View;
 use App\DTO\UserUpdateDTO;
-use App\Services\RoleService;
-use App\Services\UserService;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUser;
 use App\Http\Requests\UpdateUser;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Services\RoleService;
+use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use RealRashid\SweetAlert\Facades\Alert;
 
 /**
  * @property UserService userService
  */
-
 class UserController extends Controller
 {
-
     public function __construct(
         protected UserService $userService,
         protected RoleService $roleService
-    ){}
+    ) {}
 
     public function index(): View
     {
@@ -44,8 +42,7 @@ class UserController extends Controller
 
     public function store(StoreUser $request): RedirectResponse
     {
-        try
-        {
+        try {
             $validated = $request->validated();
 
             $userStoreDTO = UserStoreDTO::fromRequest($validated);
@@ -53,10 +50,9 @@ class UserController extends Controller
             $user = $this->userService->store($userStoreDTO);
 
             Alert::alert('Success', "User {$user->name} created", 'success');
-        }
-        catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             Alert::alert('Error', $e->getMessage(), 'error');
+
             return redirect()->back();
         }
 
@@ -67,25 +63,23 @@ class UserController extends Controller
     public function edit(User $user): View
     {
         $roles = $this->roleService->all();
-        return view('users.edit', compact(['user','roles']));
+
+        return view('users.edit', compact(['user', 'roles']));
     }
 
     public function update(UpdateUser $request, User $user): RedirectResponse
     {
 
-        try
-        {
+        try {
             $validated = $request->validated();
 
             $userUpdateDTO = UserUpdateDTO::fromRequest($validated, $user->id);
             $user = $this->userService->update($userUpdateDTO);
 
-
             Alert::alert('Success', "User {$user->name} updated", 'success');
-        }
-        catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             Alert::alert('Error', $e->getMessage(), 'error');
+
             return redirect()->back();
         }
 
@@ -94,15 +88,13 @@ class UserController extends Controller
 
     public function destroy(User $user): RedirectResponse
     {
-        try
-        {
+        try {
             $this->userService->delete($user->id);
 
             Alert::alert('Success', "User {$user->name} deleted", 'success');
-        }
-        catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             Alert::alert('Error', $e->getMessage(), 'error');
+
             return redirect()->back();
         }
 
@@ -111,22 +103,21 @@ class UserController extends Controller
 
     public function toggleTheme(): RedirectResponse
     {
-        $theme = match(Auth::user()->theme) {
+        $theme = match (Auth::user()->theme) {
             'dark' => 'light',
             'light' => 'dark',
             default => 'light',
         };
 
-
         Auth::user()->theme = $theme;
 
-        try{
+        try {
             Auth::user()->save();
 
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
 
             Alert::alert('Error', $e->getMessage(), 'error');
+
             return redirect()->back();
         }
 

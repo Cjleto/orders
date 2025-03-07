@@ -2,12 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
-use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
+use Spatie\Permission\Models\Role;
 
 class StoreUser extends FormRequest
 {
@@ -21,20 +20,20 @@ class StoreUser extends FormRequest
 
         return [
             'name' => [
-                'required','min:2','max:55'
+                'required', 'min:2', 'max:55',
             ],
             'email' => [
                 'required',
                 'email',
-                'unique:users,email'
+                'unique:users,email',
             ],
             'password' => [
                 'required',
-                Password::defaults()
+                Password::defaults(),
             ],
             'role' => [
                 'required',
-                Rule::in(Role::pluck('name')->toArray())
+                Rule::in(Role::pluck('name')->toArray()),
             ],
         ];
     }

@@ -3,10 +3,10 @@
 namespace App\Services;
 
 use App\Models\Order;
-use Illuminate\Pagination\Paginator;
+use App\Repositories\Contracts\OrderRepositoryContract;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
-use App\Repositories\Contracts\OrderRepositoryContract;
+use Illuminate\Pagination\Paginator;
 
 /**
  * @property OrderRepository orderRepository
@@ -15,14 +15,14 @@ class OrderService
 {
     public function __construct(
         protected OrderRepositoryContract $orderRepository,
-    ){}
+    ) {}
 
     public function all(): Collection
     {
         return $this->orderRepository->findAll();
     }
 
-    public function store (array $data): Order
+    public function store(array $data): Order
     {
 
         $order = $this->orderRepository->create($data);
@@ -30,7 +30,6 @@ class OrderService
         return $order;
 
     }
-
 
     public function update(array $data, int $id): Order
     {
@@ -48,7 +47,7 @@ class OrderService
         return $this->orderRepository->paginate($perPage);
     }
 
-    public function delete(string $id): bool|null
+    public function delete(string $id): ?bool
     {
         return $this->orderRepository->delete($id);
     }
@@ -72,5 +71,4 @@ class OrderService
     {
         return $this->orderRepository->getWithSortingAndIncludes();
     }
-
 }

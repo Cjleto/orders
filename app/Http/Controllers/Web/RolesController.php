@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateRole;
 use App\Http\Requests\UpdateRole;
-use Spatie\Permission\Models\Role;
-use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RolesController extends Controller
 {
@@ -23,7 +23,7 @@ class RolesController extends Controller
     public function create()
     {
         return view('roles.create', [
-            'permissions' => Permission::all()
+            'permissions' => Permission::all(),
         ]);
     }
 
@@ -43,10 +43,9 @@ class RolesController extends Controller
     public function edit(Role $role)
     {
 
-
         return view('roles.edit', [
             'role' => $role,
-            'permissions' => Permission::all()
+            'permissions' => Permission::all(),
         ]);
     }
 

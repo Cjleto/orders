@@ -2,27 +2,25 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Models\Customer;
 use App\DTO\CustomerstoreDTO;
-use Illuminate\View\View;
 use App\DTO\CustomerUpdateDTO;
-use App\Services\CustomerService;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCustomer;
 use App\Http\Requests\UpdateCustomer;
-use App\Http\Controllers\Controller;
+use App\Models\Customer;
+use App\Services\CustomerService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use RealRashid\SweetAlert\Facades\Alert;
 
 /**
  * @property CustomerService customerService
  */
-
 class CustomerController extends Controller
 {
-
     public function __construct(
         protected CustomerService $customerService
-    ){}
+    ) {}
 
     public function index(): View
     {
@@ -44,8 +42,7 @@ class CustomerController extends Controller
 
     public function store(StoreCustomer $request): RedirectResponse
     {
-        try
-        {
+        try {
             $validated = $request->validated();
 
             $customerstoreDTO = CustomerstoreDTO::fromRequest($validated);
@@ -53,10 +50,9 @@ class CustomerController extends Controller
             $customer = $this->customerService->store($customerstoreDTO);
 
             Alert::alert('Success', "Customer {$customer->full_name} created", 'success');
-        }
-        catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             Alert::alert('Error', $e->getMessage(), 'error');
+
             return redirect()->back();
         }
 
@@ -72,19 +68,16 @@ class CustomerController extends Controller
     public function update(UpdateCustomer $request, Customer $customer): RedirectResponse
     {
 
-        try
-        {
+        try {
             $validated = $request->validated();
 
             $customerUpdateDTO = CustomerUpdateDTO::fromRequest($validated, $customer->id);
             $customer = $this->customerService->update($customerUpdateDTO);
 
-
             Alert::alert('Success', "Customer {$customer->full_name} updated", 'success');
-        }
-        catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             Alert::alert('Error', $e->getMessage(), 'error');
+
             return redirect()->back();
         }
 
@@ -93,19 +86,16 @@ class CustomerController extends Controller
 
     public function destroy(Customer $customer): RedirectResponse
     {
-        try
-        {
+        try {
             $this->customerService->delete($customer->id);
 
             Alert::alert('Success', "Customer {$customer->full_name} deleted", 'success');
-        }
-        catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             Alert::alert('Error', $e->getMessage(), 'error');
+
             return redirect()->back();
         }
 
         return redirect()->route('customers.index');
     }
-
 }

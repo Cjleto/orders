@@ -13,7 +13,7 @@ class UpdateRole extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                'unique:roles,name,' . $this->route('role')->id,
+                'unique:roles,name,'.$this->route('role')->id,
             ],
             [
                 'permissions' => 'required|array|min:1',

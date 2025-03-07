@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Faker\Generator as Faker;
 
 class ProductFactory extends Factory
 {
@@ -19,5 +18,4 @@ class ProductFactory extends Factory
             'stock' => $this->faker->numberBetween(1, 100),  // Stock tra 1 e 100
         ];
     }
-
 }

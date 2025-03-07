@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('status')->default(OrderStatus::IN_ELABORAZIONE->value); // Stato dell'ordine (può essere 'in elaborazione', 'completato', ecc.)
             $table->timestamps();
 
-
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
         });
     }

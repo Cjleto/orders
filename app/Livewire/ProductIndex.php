@@ -2,16 +2,14 @@
 
 namespace App\Livewire;
 
-use App\Models\Product;
-use Livewire\Component;
-use Livewire\Attributes\On;
-use Livewire\WithPagination;
-use App\Helpers\LivewireSwal;
-use Livewire\Attributes\Lazy;
-use Livewire\Attributes\Computed;
-use Illuminate\Contracts\View\View;
 use App\Repositories\Contracts\ProductRepositoryContract;
 use Debugbar;
+use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Lazy;
+use Livewire\Attributes\On;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 #[Lazy]
 class ProductIndex extends Component
@@ -24,7 +22,7 @@ class ProductIndex extends Component
 
     public function mount()
     {
-        if (!empty($this->search)) {
+        if (! empty($this->search)) {
             $this->updatedSearch($this->search);
         }
     }
@@ -48,7 +46,7 @@ class ProductIndex extends Component
         Debugbar::info('products requested');
 
         $productRepository = app(ProductRepositoryContract::class);
-        $products =  $productRepository->searchByFieldPaginated(
+        $products = $productRepository->searchByFieldPaginated(
             search: $this->search,
             field: 'description',
             paginationCount: $this->paginationCount

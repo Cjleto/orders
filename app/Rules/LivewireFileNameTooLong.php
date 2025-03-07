@@ -14,8 +14,8 @@ class LivewireFileNameTooLong implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-            if (strlen($value->getClientOriginalName()) > 50) {
-                $fail('The file name is too long');
-            }
+        if (strlen($value->getClientOriginalName()) > 50) {
+            $fail('The file name is too long');
+        }
     }
 }

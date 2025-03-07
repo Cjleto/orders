@@ -4,7 +4,6 @@ namespace App\DTO;
 
 class OrderStoreDTO
 {
-
     public function __construct(
         public int $customer_id,
         public string $status,
@@ -28,5 +27,4 @@ class OrderStoreDTO
             'total' => $this->total,
         ];
     }
-
 }

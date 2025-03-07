@@ -2,16 +2,13 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use App\Rules\LivewireFileNameTooLong;
-use Debugbar;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ProductRequest extends FormRequest
 {
-
-    public function __construct(private ?int $id = null)
-    {}
+    public function __construct(private ?int $id = null) {}
 
     /**
      * Determine if the user is authorized to make this request.
@@ -33,18 +30,19 @@ class ProductRequest extends FormRequest
             'name' => [
                 'required',
                 'min:2',
-                'max:55'
+                'max:55',
             ],
             'description' => 'required|min:2',
             'price' => 'required|numeric',
             'newPhoto' => [
                 'nullable',
+                'bail',
+                new LivewireFileNameTooLong,
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',
                 'max:2048',
-                new LivewireFileNameTooLong()
             ],
-            'stock' => 'required|integer'
+            'stock' => 'required|integer',
         ];
 
         if ($this->id) {
@@ -58,11 +56,18 @@ class ProductRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        if($this->hasFile('photo')) {
+        if ($this->hasFile('photo')) {
             $this->merge([
-                'newPhoto' => $this['photo']
+                'newPhoto' => $this['photo'],
             ]);
         }
 
+    }
+
+    public function messages(): array
+    {
+        return [
+            'newPhoto.image' => 'The file must be a valid image',
+        ];
     }
 }

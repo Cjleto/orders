@@ -2,18 +2,15 @@
 
 namespace App\Models;
 
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Traits\HasRoles;
 
 /**
- *
- *
  * @property int $id
  * @property string $name
  * @property string $email
@@ -30,6 +27,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Role> $roles
  * @property-read int|null $roles_count
+ *
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|User managers()
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
@@ -48,12 +46,12 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutPermission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutRole($roles, $guard = null)
+ *
  * @mixin \Eloquent
  */
 class User extends Authenticatable
 {
-
-    use HasFactory, Notifiable, HasRoles, SoftDeletes, HasApiTokens;
+    use HasApiTokens, HasFactory, HasRoles, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -63,7 +61,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password'
+        'password',
     ];
 
     /**
@@ -98,5 +96,4 @@ class User extends Authenticatable
     {
         return $this->hasRole('manager');
     }
-
 }

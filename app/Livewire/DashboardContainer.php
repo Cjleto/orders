@@ -3,25 +3,30 @@
 namespace App\Livewire;
 
 use App\Enums\OrderStatus;
-use App\Models\Order;
-use Livewire\Component;
 use App\Services\OrderService;
-use Illuminate\Support\Collection;
-use Barryvdh\Debugbar\Facades\Debugbar;
-use Asantibanez\LivewireCharts\Models\LineChartModel;
 use Asantibanez\LivewireCharts\Facades\LivewireCharts;
 use Asantibanez\LivewireCharts\Models\ColumnChartModel;
+use Asantibanez\LivewireCharts\Models\LineChartModel;
+use Barryvdh\Debugbar\Facades\Debugbar;
+use Illuminate\Support\Collection;
+use Livewire\Component;
 
 class DashboardContainer extends Component
 {
-
     public $startDate;
+
     public $endDate;
+
     private Collection $startingData;
+
     private bool $animated = true;
+
     public string $currency;
+
     public array $statuses;
+
     public array $countByStatus = [];
+
     public string $totalRevenue = '0.00';
 
     public $colors = [
@@ -33,6 +38,7 @@ class DashboardContainer extends Component
     ];
 
     public $firstRun = true;
+
     public $showDataLabels = true;
 
     public function mount()
@@ -55,7 +61,6 @@ class DashboardContainer extends Component
         $this->startingData = $this->getData();
     }
 
-
     public function render()
     {
 
@@ -67,16 +72,17 @@ class DashboardContainer extends Component
         return view('livewire.dashboard-container')
             ->with([
                 'ordersAmounForRange' => $this->getOrdersAmountForDateRange(),
-                'ordersCountForRange' => $this->getOrdersCountForDateRange()
+                'ordersCountForRange' => $this->getOrdersCountForDateRange(),
             ]);
     }
 
     private function getData(): Collection
     {
-        Debugbar::info('getData1 ' . $this->startDate . ' ' . $this->endDate);
+        Debugbar::info('getData1 '.$this->startDate.' '.$this->endDate);
         $orderService = app(OrderService::class);
         $records = $orderService->getOrdersBetweenDates($this->startDate, $this->endDate);
-        Debugbar::info('getData2 '. $this->startDate . ' ' . $this->endDate. ' ' . count($records));
+        Debugbar::info('getData2 '.$this->startDate.' '.$this->endDate.' '.count($records));
+
         return $records;
     }
 
@@ -95,13 +101,14 @@ class DashboardContainer extends Component
         $localData = $localData->map(function ($day) {
             return [
                 'date' => $day->first()->created_at->format('Y-m-d'),
-                'total' => $day->sum('total')
+                'total' => $day->sum('total'),
             ];
         });
 
         return $localData->reduce(
             function (LineChartModel $lineChartModel, $item) use ($localData) {
                 $date = $localData->search($item);
+
                 return $lineChartModel->addPoint($date, $item['total']);
             },
             LivewireCharts::lineChartModel()
@@ -114,16 +121,13 @@ class DashboardContainer extends Component
                 ->setGridVisible(true)
                 ->setDataLabelsEnabled(false)
                 ->setJsonConfig([
-                    'dataLabels.formatter' =>
-                'function (value) { return parseFloat(value).toFixed(2) + " ' . $this->currency . '"; }',
+                    'dataLabels.formatter' => 'function (value) { return parseFloat(value).toFixed(2) + " '.$this->currency.'"; }',
                     'tooltip.y.formatter' => 'function (value) { return parseFloat(value).toFixed(2) + " '.$this->currency.'"; }',
-                    'yaxis.labels.formatter' =>
-                'function (value) { return parseFloat(value).toFixed(2) + " ' . $this->currency . '"; }',
+                    'yaxis.labels.formatter' => 'function (value) { return parseFloat(value).toFixed(2) + " '.$this->currency.'"; }',
                 ])
 
         );
     }
-
 
     private function getOrdersCountForDateRange()
     {
@@ -134,7 +138,7 @@ class DashboardContainer extends Component
         $localData = $localData->map(function ($day) {
             return [
                 'date' => $day->first()->created_at->format('Y-m-d'),
-                'count' => $day->count()
+                'count' => $day->count(),
             ];
         });
 
@@ -171,13 +175,11 @@ class DashboardContainer extends Component
         });
 
         foreach ($this->statuses as $status) {
-            if (!$localData->has($status->name)) {
+            if (! $localData->has($status->name)) {
                 $localData[$status->name] = 0;
             }
         }
 
         $this->countByStatus = $localData->toArray();
     }
-
-
 }

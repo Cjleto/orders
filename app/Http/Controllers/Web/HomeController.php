@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Web;
 
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -28,7 +28,6 @@ class HomeController extends Controller
         // if (Auth::user()?->hasRole('admin')) {
         //     return redirect()->route('admin.home');
         // }
-
 
         return view('home');
     }

@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\Customer;
-use Illuminate\Http\Request;
 use App\DTO\CustomerStoreDTO;
 use App\DTO\CustomerUpdateDTO;
-use App\Services\CustomerService;
+use App\Http\Controllers\ApiController;
 use App\Http\Requests\StoreCustomer;
 use App\Http\Requests\UpdateCustomer;
-use App\Http\Controllers\ApiController;
 use App\Http\Resources\CustomerResource;
+use App\Models\Customer;
+use App\Services\CustomerService;
+use Illuminate\Http\Request;
 
 class CustomerController extends ApiController
 {
-
     public function __construct(
         protected CustomerService $customerService
     ) {}
@@ -22,6 +21,7 @@ class CustomerController extends ApiController
     public function index()
     {
         $customers = $this->customerService->getWithSortingAndIncludes();
+
         return CustomerResource::collection($customers);
 
     }
@@ -31,6 +31,7 @@ class CustomerController extends ApiController
         $validated = $request->validated();
         $dto = CustomerStoreDTO::fromRequest($validated);
         $customer = $this->customerService->store($dto);
+
         return $this->success(new CustomerResource($customer));
     }
 
@@ -54,6 +55,7 @@ class CustomerController extends ApiController
     public function destroy(string $id)
     {
         $this->customerService->delete($id);
+
         return $this->success();
     }
 }

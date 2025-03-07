@@ -3,9 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Spatie\Permission\Models\Role;
 
 class PermissionsRolesSeeder extends Seeder
 {
@@ -17,10 +16,10 @@ class PermissionsRolesSeeder extends Seeder
 
         $initial_role_permissions = config('myconst.initial_role_permissions');
 
-        foreach($initial_role_permissions as $role => $permissions) {
+        foreach ($initial_role_permissions as $role => $permissions) {
             $new_role = Role::create(['name' => $role]);
             $new_role->permissions()->detach();
-            foreach($permissions as $permission) {
+            foreach ($permissions as $permission) {
                 $new_permission = Permission::updateOrCreate(['name' => $permission]);
                 $new_role->permissions()->attach($new_permission->id);
             }

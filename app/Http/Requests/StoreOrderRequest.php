@@ -2,13 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\OrderStatus;
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreOrderRequest extends FormRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *

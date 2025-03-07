@@ -1,12 +1,12 @@
 <?php
 
-use App\Models\User;
-use App\Models\Product;
-use App\Services\UserService;
-use Illuminate\Http\Response;
-use App\Services\ProductService;
 use App\Http\Resources\ProductResource;
+use App\Models\Product;
+use App\Models\User;
+use App\Services\ProductService;
+use App\Services\UserService;
 use Database\Seeders\PermissionsRolesSeeder;
+use Illuminate\Http\Response;
 
 beforeEach(function () {
 
@@ -50,7 +50,6 @@ it('can create a product', function () {
         ->assertJson(ProductResource::make($product)->response()->getData(true));
 });
 
-
 it('can show a single product', function () {
 
     $product = Product::factory()->create();
@@ -62,12 +61,11 @@ it('can show a single product', function () {
         ->assertJson(ProductResource::make($product)->response()->getData(true));
 });
 
-
 it('can update a product', function () {
 
     $product = Product::factory()->create();
     $newProduct = Product::factory()->make([
-        'name' => 'Unique Name ' . uniqid() // Assicurati che il nome sia unico
+        'name' => 'Unique Name '.uniqid(), // Assicurati che il nome sia unico
     ]);
 
     // Simula il comportamento del service
@@ -81,14 +79,13 @@ it('can update a product', function () {
         ->assertJson(ProductResource::make($newProduct)->response()->getData(true));
 });
 
-
 it('can delete a product', function () {
 
     $product = Product::factory()->create();
 
     $this->productService->shouldReceive('delete')
         ->once()
-        ->andReturnUsing(fn($product) => $product->delete()); // forxo il delete col l'uso del mock
+        ->andReturnUsing(fn ($product) => $product->delete()); // forxo il delete col l'uso del mock
 
     $response = $this->deleteJson(route('api.products.destroy', $product->id));
 

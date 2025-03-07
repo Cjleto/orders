@@ -2,14 +2,13 @@
 
 namespace App\Repositories\Eloquent;
 
-use Carbon\Carbon;
 use App\Models\Order;
-use Illuminate\Support\Collection;
 use App\Repositories\Contracts\OrderRepositoryContract;
+use Carbon\Carbon;
+use Illuminate\Support\Collection;
 
 class OrderRepository extends BaseRepository implements OrderRepositoryContract
 {
-
     public function __construct(Order $model)
     {
         parent::__construct($model);
@@ -19,7 +18,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
     {
         return $this->model->whereBetween('created_at', [
             Carbon::parse($start)->startOfDay(),
-            Carbon::parse($end)->endOfDay()
+            Carbon::parse($end)->endOfDay(),
         ])->get();
     }
 
@@ -41,6 +40,4 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
 
         return $query->paginate(10);
     }
-
-
 }

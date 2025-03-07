@@ -2,20 +2,20 @@
 
 namespace App\Livewire;
 
-use Debugbar;
 use App\Models\Product;
-use Livewire\Component;
-use Livewire\Attributes\On;
-use Livewire\Attributes\Lazy;
-use Livewire\Attributes\Reactive;
-use Illuminate\Contracts\View\View;
 use App\Repositories\Contracts\ProductRepositoryContract;
+use Debugbar;
+use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Lazy;
+use Livewire\Attributes\On;
+use Livewire\Attributes\Reactive;
+use Livewire\Component;
 
 #[Lazy]
 class ProductListCreateOrder extends Component
 {
-
     public $products;
+
     public $searchString = '';
 
     #[Reactive]
@@ -29,13 +29,13 @@ class ProductListCreateOrder extends Component
     #[On('searchProductUpdated')]
     public function loadProducts(string $value)
     {
-        //Debugbar::info('received searchProductUpdated event: '. $value);
+        // Debugbar::info('received searchProductUpdated event: '. $value);
 
         /** @var productRepository $productRepository */
         $productRepository = app(ProductRepositoryContract::class);
         $products = $productRepository->findAll();
 
-        if(!empty($value)) {
+        if (! empty($value)) {
             $products = $products->filter(function ($product) use ($value) {
                 return str_contains(strtolower($product->name), strtolower($value));
             });
@@ -49,14 +49,14 @@ class ProductListCreateOrder extends Component
     {
         $this->dispatch('productAdded', $product);
 
-        Debugbar::info('received productAdded event: '. $product);
+        Debugbar::info('received productAdded event: '.$product);
     }
 
     public function removeProduct(Product $product)
     {
         $this->dispatch('productRemoved', $product);
 
-        Debugbar::info('received productRemoved event: '. $product);
+        Debugbar::info('received productRemoved event: '.$product);
     }
 
     public function orderItemQuantity(Product $product)

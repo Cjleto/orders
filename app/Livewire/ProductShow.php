@@ -7,7 +7,6 @@ use Livewire\Component;
 
 class ProductShow extends Component
 {
-
     public Product $product;
 
     public function render()
