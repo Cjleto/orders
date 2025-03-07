@@ -36,10 +36,11 @@ class ProductRequest extends FormRequest
             'price' => 'required|numeric',
             'newPhoto' => [
                 'nullable',
+                'bail',
+                new LivewireFileNameTooLong,
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',
                 'max:2048',
-                new LivewireFileNameTooLong,
             ],
             'stock' => 'required|integer',
         ];
@@ -61,5 +62,12 @@ class ProductRequest extends FormRequest
             ]);
         }
 
+    }
+
+    public function messages(): array
+    {
+        return [
+            'newPhoto.image' => 'The file must be a valid image',
+        ];
     }
 }
