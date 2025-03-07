@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Traits\ApiResponses;
 
 class ApiController extends Controller
 {
+
+    use ApiResponses;
+
+
     protected function loadIncludes(Request $request, $model)
     {
         // Definisci un elenco di relazioni valide, per esempio, definito nel modello stesso

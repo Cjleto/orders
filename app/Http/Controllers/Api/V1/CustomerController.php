@@ -31,7 +31,7 @@ class CustomerController extends ApiController
         $validated = $request->validated();
         $dto = CustomerStoreDTO::fromRequest($validated);
         $customer = $this->customerService->store($dto);
-        return new CustomerResource($customer);
+        return $this->success(new CustomerResource($customer));
     }
 
     public function show(Request $request, Customer $customer)
@@ -47,10 +47,13 @@ class CustomerController extends ApiController
         $validated = $request->validated();
         $customerUpdateDTO = CustomerUpdateDTO::fromRequest($validated, $customer->id);
         $customer = $this->customerService->update($customerUpdateDTO);
+
+        return $this->success(new CustomerResource($customer));
     }
 
     public function destroy(string $id)
     {
-        //
+        $this->customerService->delete($id);
+        return $this->success();
     }
 }

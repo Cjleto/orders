@@ -29,7 +29,7 @@ class OrderShow extends Component
 
     private function loadOrderRelationships ()
     {
-        $this->order->load(['items', 'customer', ]);
+        $this->order->load(['items', 'customer']);
         $this->historySteps = $this->order->historySteps()->with('user')->get();
     }
 

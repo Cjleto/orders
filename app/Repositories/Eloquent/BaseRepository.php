@@ -2,10 +2,13 @@
 
 namespace App\Repositories\Eloquent;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositories\Contracts\BaseContract;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 abstract class BaseRepository implements BaseContract
 {
@@ -39,7 +42,7 @@ abstract class BaseRepository implements BaseContract
         return $model;
     }
 
-    public function delete(int $id): bool|null
+    public function delete(string $id): bool|null
     {
         $model = $this->model->find($id);
         return $model->delete();
@@ -84,7 +87,7 @@ abstract class BaseRepository implements BaseContract
         return $query;
     }
 
-    public function applyIncludes($query)
+    public function applyIncludes($query): Builder
     {
         $includes = request()->query('include', null);
 
@@ -99,20 +102,39 @@ abstract class BaseRepository implements BaseContract
 
     public function getWithSortingAndIncludes(array $relations = [], ?int $perPage = null)
     {
-        $query = $this->model->query();
+        // Crea una chiave unica per la cache basata sulle condizioni
+        $cacheKey = 'model_data.' . md5(
+            implode(',', $relations) .
+                '-' . request()->query('sort_by', 'id') . // Modificato per ottenere direttamente il parametro di ordinamento
+                '-' . request()->query('order', 'asc') . // Modificato per ottenere direttamente il parametro di ordine
+                '-' . $perPage
+        );
 
-        // Applica gli includes
-        $query = $this->applyIncludes($query);
+        return Cache::remember($cacheKey, now()->addSeconds(config('myconst.cache_ttl_sec')) , function () use ($relations, $perPage) {
 
-        // Applica il sorting
-        $query = $this->applySorting($query);
 
-        // Applica le relazioni (se specificate)
-        if ($relations) {
-            $query = $query->with($relations);
-        }
+            DB::listen(function ($query) {
+                info('Query Executed: ' . $query->sql);
+                //info('Bindings: ' . implode(', ', $query->bindings));
+                info('Time: ' . $query->time . 'ms');
+            });
 
-        // Gestisce la paginazione se presente
-        return $perPage ? $query->simplePaginate($perPage) : $query->get();
+
+            $query = $this->model->query();
+
+            // Applica gli includes
+            $query = $this->applyIncludes($query);
+
+            // Applica il sorting
+            $query = $this->applySorting($query);
+
+            // Applica le relazioni (se specificate)
+            if ($relations) {
+                $query = $query->with($relations);
+            }
+
+            // Gestisce la paginazione se presente
+            return $perPage ? $query->simplePaginate($perPage) : $query->get();
+        });
     }
 }

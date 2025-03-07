@@ -19,6 +19,9 @@ class Order extends Model implements HasSortableFields, HasIncludableRelations
 
     use HasFactory, HasUuids, LogsActivity;
 
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = ['customer_id', 'status', 'total'];
 
     /* protected $with = ['products','customer']; */

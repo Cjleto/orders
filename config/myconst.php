@@ -16,4 +16,5 @@ return [
         ]
     ],
     'currency_symbol' => env('CURRENCY_SYMBOL', '€'),
+    'cache_ttl_sec' => env('CACHE_TTL', 10),
 ];

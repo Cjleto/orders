@@ -55,4 +55,14 @@ class ProductRequest extends FormRequest
 
         return $rules;
     }
+
+    public function prepareForValidation()
+    {
+        if($this->hasFile('photo')) {
+            $this->merge([
+                'newPhoto' => $this['photo']
+            ]);
+        }
+
+    }
 }

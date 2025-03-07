@@ -46,9 +46,14 @@ class Product extends Model implements HasMedia, HasSortableFields, HasIncludabl
     /** RELATIONSHIPS */
     public function orders()
     {
-        return $this->belongsToMany(Order::class, 'order_product')
+        return $this->belongsToMany(Order::class, 'order_product', 'product_id', 'order_id')
             ->withPivot(['quantity', 'product_name', 'product_price'])
             ->withTimestamps();
+    }
+
+    public function items()
+    {
+        return $this->hasMany(OrderProduct::class);
     }
 
     /** ACCESSORS */

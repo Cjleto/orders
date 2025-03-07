@@ -23,23 +23,23 @@ class OrderRepository extends BaseRepository implements OrderRepositoryContract
         ])->get();
     }
 
-    public function getOrderIndexData(array $searchData)
+    public function getOrderIndexData(array $searchData, array $relations = [])
     {
-        // Inizia la query base
         $query = Order::query();
 
-        // Filtra per ID se fornito
         $query->when($searchData['id'], function ($query) use ($searchData) {
             return $query->where('id', $searchData['id']);
         });
 
-        // Filtra per status se fornito
         $query->when($searchData['status'], function ($query) use ($searchData) {
             return $query->where('status', $searchData['status']);
         });
 
-        // Esegui la query e restituisci i risultati (puoi usare paginate o get)
-        return $query->paginate(10);  // oppure ->get() se non vuoi la paginazione
+        $query->when(count($relations), function ($query) use ($relations) {
+            return $query->with($relations);
+        });
+
+        return $query->paginate(10);
     }
 
 

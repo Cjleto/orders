@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Order;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Repositories\Contracts\OrderRepositoryContract;
@@ -47,7 +48,7 @@ class OrderService
         return $this->orderRepository->paginate($perPage);
     }
 
-    public function delete(int $id): bool|null
+    public function delete(string $id): bool|null
     {
         return $this->orderRepository->delete($id);
     }
@@ -57,10 +58,19 @@ class OrderService
         return $this->orderRepository->getOrdersBetweenDates($start, $end);
     }
 
-    public function getOrderIndexData(array $searchData)
+    public function getOrderIndexData(array $searchData, array $relations = []): LengthAwarePaginator
     {
-        return $this->orderRepository->getOrderIndexData($searchData);
+        return $this->orderRepository->getOrderIndexData($searchData, $relations);
     }
 
+    public function getWithRelations(?int $perPage = null): Collection|Paginator
+    {
+        return $this->orderRepository->getWithRelations(['customer', 'products'], $perPage);
+    }
+
+    public function getWithSortingAndIncludes(?int $perPage = null): Collection|Paginator
+    {
+        return $this->orderRepository->getWithSortingAndIncludes();
+    }
 
 }

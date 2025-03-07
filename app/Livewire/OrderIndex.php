@@ -66,7 +66,7 @@ class OrderIndex extends Component
             'status' => $this->filteredStatus,
         ];
 
-        $orders = $orderService->getOrderIndexData($searchData);
+        $orders = $orderService->getOrderIndexData($searchData, ['customer', 'products']);
 
         return $orders;
     }

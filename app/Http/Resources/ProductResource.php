@@ -30,6 +30,7 @@ class ProductResource extends JsonResource
                     'mime_type' => $item->mime_type,
                 ];
             }),
+            'orders' => $this->whenLoaded('orders'),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

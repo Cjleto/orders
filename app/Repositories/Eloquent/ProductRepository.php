@@ -31,4 +31,6 @@ class ProductRepository extends BaseRepository implements ProductRepositoryContr
         return $query->paginate($paginationCount);
     }
 
+
+
 }

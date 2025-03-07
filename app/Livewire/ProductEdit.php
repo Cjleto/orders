@@ -54,7 +54,7 @@ class ProductEdit extends Component
 
         try {
 
-            $updateProductDto = ProductUpdateDTO::fromRequest($validated + ['id' => $this->product->id]);
+            $updateProductDto = ProductUpdateDTO::fromRequest($validated,$this->product->id);
 
             $productService->update($updateProductDto);
 

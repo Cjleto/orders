@@ -2,6 +2,7 @@
 
 namespace App\DTO;
 
+use Illuminate\Http\UploadedFile;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 final readonly class ProductStoreDTO
@@ -10,7 +11,8 @@ final readonly class ProductStoreDTO
         public string $name,
         public string $description,
         public float $price,
-        public ?TemporaryUploadedFile $newPhoto = null,
+        /** @var TemporaryUploadedFile|UploadedFile|null */
+        public mixed $newPhoto = null,
         public int $stock = 0
     ) {}
 

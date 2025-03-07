@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\Product;
 use App\DTO\ProductStoreDTO;
 use App\DTO\ProductUpdateDTO;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\Paginator;
 use App\Actions\Product\CreateProductAction;
 use App\Actions\Product\DeleteProductAction;
 use App\Actions\Product\UpdateProductAction;
@@ -42,5 +44,10 @@ class ProductService
     {
 
         $this->deleteProductAction->execute($product);
+    }
+
+    public function getWithSortingAndIncludes(?int $perPage = null): Collection|Paginator
+    {
+        return $this->productRepository->getWithSortingAndIncludes();
     }
 }

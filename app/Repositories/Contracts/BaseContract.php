@@ -46,7 +46,7 @@ interface BaseContract
      * @param int $id
      * @return bool
      */
-    public function delete(int $id): bool|null;
+    public function delete(string $id): bool|null;
 
     /**
      * Paginate all resources.
