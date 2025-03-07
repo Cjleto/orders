@@ -39,7 +39,7 @@ class CustomerController extends ApiController
 
         $customer = $this->loadIncludes($request, $customer);
 
-        return new CustomerResource($customer);
+        return $this->success(new CustomerResource($customer));
     }
 
     public function update(UpdateCustomer $request, Customer $customer)

@@ -66,7 +66,9 @@ it('can show a single product', function () {
 it('can update a product', function () {
 
     $product = Product::factory()->create();
-    $newProduct = Product::factory()->make();
+    $newProduct = Product::factory()->make([
+        'name' => 'Unique Name ' . uniqid() // Assicurati che il nome sia unico
+    ]);
 
     // Simula il comportamento del service
     $this->productService->shouldReceive('update')
