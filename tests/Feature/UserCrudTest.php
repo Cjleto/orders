@@ -3,9 +3,9 @@
 use App\Models\User;
 use App\Services\RoleService;
 use App\Services\UserService;
+use Database\Seeders\PermissionsRolesSeeder;
 use Illuminate\Http\Response;
 use Spatie\Permission\Models\Role;
-use Database\Seeders\PermissionsRolesSeeder;
 
 beforeEach(function () {
 
@@ -20,7 +20,6 @@ beforeEach(function () {
 });
 
 it('index returns a view with users', function () {
-
 
     // Mock del metodo paginate
     $this->userService->shouldReceive('paginate')->andReturn(User::paginate(10));

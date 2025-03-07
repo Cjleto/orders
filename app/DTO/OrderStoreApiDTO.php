@@ -4,7 +4,6 @@ namespace App\DTO;
 
 class OrderStoreApiDTO
 {
-
     public function __construct(
         public int $customer_id,
         public array $products,
@@ -25,5 +24,4 @@ class OrderStoreApiDTO
             'products' => $this->products,
         ];
     }
-
 }

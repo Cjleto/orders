@@ -9,7 +9,6 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductRepository extends BaseRepository implements ProductRepositoryContract
 {
-
     public function __construct(Product $model)
     {
         parent::__construct($model);
@@ -30,7 +29,4 @@ class ProductRepository extends BaseRepository implements ProductRepositoryContr
 
         return $query->paginate($paginationCount);
     }
-
-
-
 }

@@ -17,5 +17,4 @@ class UserRepository extends BaseRepository implements UserRepositoryContract
         $user = $this->model->find($id);
         $user->roles()->sync($roles);
     }
-
 }

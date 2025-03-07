@@ -2,13 +2,13 @@
 
 namespace App\Repositories\Eloquent;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Database\Eloquent\Model;
 use App\Repositories\Contracts\BaseContract;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 abstract class BaseRepository implements BaseContract
 {
@@ -34,17 +34,18 @@ abstract class BaseRepository implements BaseContract
     public function update(int $id, array $data): Model
     {
         $model = $this->model->query()
-                    ->where('id', $id)
-                    ->firstOrFail();
+            ->where('id', $id)
+            ->firstOrFail();
 
         $model->update($data);
 
         return $model;
     }
 
-    public function delete(string $id): bool|null
+    public function delete(string $id): ?bool
     {
         $model = $this->model->find($id);
+
         return $model->delete();
     }
 
@@ -99,26 +100,23 @@ abstract class BaseRepository implements BaseContract
         return $query;
     }
 
-
     public function getWithSortingAndIncludes(array $relations = [], ?int $perPage = null)
     {
         // Crea una chiave unica per la cache basata sulle condizioni
-        $cacheKey = 'model_data.' . md5(
-            implode(',', $relations) .
-                '-' . request()->query('sort_by', 'id') . // Modificato per ottenere direttamente il parametro di ordinamento
-                '-' . request()->query('order', 'asc') . // Modificato per ottenere direttamente il parametro di ordine
-                '-' . $perPage
+        $cacheKey = 'model_data.'.md5(
+            implode(',', $relations).
+                '-'.request()->query('sort_by', 'id'). // Modificato per ottenere direttamente il parametro di ordinamento
+                '-'.request()->query('order', 'asc'). // Modificato per ottenere direttamente il parametro di ordine
+                '-'.$perPage
         );
 
-        return Cache::remember($cacheKey, now()->addSeconds(config('myconst.cache_ttl_sec')) , function () use ($relations, $perPage) {
-
+        return Cache::remember($cacheKey, now()->addSeconds(config('myconst.cache_ttl_sec')), function () use ($relations, $perPage) {
 
             DB::listen(function ($query) {
-                info('Query Executed: ' . $query->sql);
-                //info('Bindings: ' . implode(', ', $query->bindings));
-                info('Time: ' . $query->time . 'ms');
+                info('Query Executed: '.$query->sql);
+                // info('Bindings: ' . implode(', ', $query->bindings));
+                info('Time: '.$query->time.'ms');
             });
-
 
             $query = $this->model->query();
 

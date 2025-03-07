@@ -4,22 +4,22 @@ namespace App\Models;
 
 use App\Enums\OrderStatus;
 use App\Interfaces\HasIncludableRelations;
-use Spatie\Activitylog\LogOptions;
-use Database\Factories\OrderFactory;
 use App\Interfaces\HasSortableFields;
-use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Database\Factories\OrderFactory;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Attributes\UseFactory;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 #[UseFactory(OrderFactory::class)]
-class Order extends Model implements HasSortableFields, HasIncludableRelations
+class Order extends Model implements HasIncludableRelations, HasSortableFields
 {
-
     use HasFactory, HasUuids, LogsActivity;
 
     public $incrementing = false;
+
     protected $keyType = 'string';
 
     protected $fillable = ['customer_id', 'status', 'total'];
@@ -38,7 +38,7 @@ class Order extends Model implements HasSortableFields, HasIncludableRelations
 
     protected $casts = [
         'total' => 'float',
-        'status' => OrderStatus::class
+        'status' => OrderStatus::class,
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -60,21 +60,20 @@ class Order extends Model implements HasSortableFields, HasIncludableRelations
             ->withTimestamps();
     }
 
-    public function items ()
+    public function items()
     {
         return $this->hasMany(OrderProduct::class);
     }
 
-    public function historySteps ()
+    public function historySteps()
     {
         return $this->hasMany(OrderHistoryStep::class);
     }
 
-
     /** ACCESSORS */
     public function getFormattedTotalAttribute(): string
     {
-        return number_format($this->total, 2, ',', '.') . ' ' . config('myconst.currency_symbol');
+        return number_format($this->total, 2, ',', '.').' '.config('myconst.currency_symbol');
     }
 
     public function setTotalAttribute($value): void

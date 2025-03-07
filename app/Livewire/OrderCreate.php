@@ -2,44 +2,51 @@
 
 namespace App\Livewire;
 
-use Debugbar;
-use App\Models\Product;
-use Livewire\Component;
-use App\DTO\OrderStoreDTO;
-use Livewire\Attributes\On;
-use App\DTO\OrderProductDTO;
-use App\Helpers\LivewireSwal;
-use Livewire\Attributes\Computed;
-use Illuminate\Support\Collection;
 use App\Actions\Order\CreateOrderAction;
+use App\DTO\OrderProductDTO;
+use App\DTO\OrderStoreDTO;
 use App\Enums\OrderStatus;
+use App\Helpers\LivewireSwal;
 use App\Http\Requests\StoreOrderRequest;
-use App\Repositories\Contracts\OrderRepositoryContract;
-use App\Repositories\Contracts\ProductRepositoryContract;
+use App\Models\Product;
 use App\Repositories\Contracts\CustomerRepositoryContract;
+use App\Repositories\Contracts\ProductRepositoryContract;
+use Debugbar;
+use Illuminate\Support\Collection;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
+use Livewire\Component;
 
 class OrderCreate extends Component
 {
-
     public Collection $products;
+
     public Collection $customers;
+
     public Collection $orderItems;
+
     public string $searchProduct = '';
+
     public bool $showSaveButton = false;
 
     public float $total = 0;
+
     public string $status = OrderStatus::IN_ELABORAZIONE->value;
+
     public int $customer_id = 0;
+
     public int $selectedProductId = 0;
+
     public Product $selectedProduct;
+
     public $createdOrder;
 
     public function rules()
     {
-        return (new StoreOrderRequest())->rules();
+        return (new StoreOrderRequest)->rules();
     }
 
-    public function mount ()
+    public function mount()
     {
         $this->loadCustomers();
         $this->orderItems = collect();
@@ -48,14 +55,14 @@ class OrderCreate extends Component
 
     public function setShowButton()
     {
-        Debugbar::info("cus: " . $this->customer_id);
+        Debugbar::info('cus: '.$this->customer_id);
         $this->showSaveButton = false;
-        if($this->orderItems->count() > 0 && $this->customer_id > 0) {
+        if ($this->orderItems->count() > 0 && $this->customer_id > 0) {
             $this->showSaveButton = true;
         }
     }
 
-    public function loadProducts (string $value)
+    public function loadProducts(string $value)
     {
         /** @var productRepository $productRepository */
         $productRepository = app(ProductRepositoryContract::class);
@@ -68,7 +75,7 @@ class OrderCreate extends Component
 
     }
 
-    public function loadCustomers ()
+    public function loadCustomers()
     {
         /** @var CustomerRepository $customerRepository */
         $customerRepository = app(CustomerRepositoryContract::class);
@@ -76,15 +83,15 @@ class OrderCreate extends Component
 
     }
 
-    public function updatedSearchProduct (string $value)
+    public function updatedSearchProduct(string $value)
     {
         $this->dispatch('searchProductUpdated', $value);
     }
 
     #[On('productAdded')]
-    public function addOrderItem (Product $product)
+    public function addOrderItem(Product $product)
     {
-       try {
+        try {
             $this->__checkQuantity($product);
             $this->addProduct($product);
             $this->showSaveButton = true;
@@ -95,15 +102,16 @@ class OrderCreate extends Component
                 ->setParams([
                     'title' => 'Error',
                     'text' => 'An error occurred while creating the order',
-                    'footer' => $e->getMessage()
+                    'footer' => $e->getMessage(),
                 ])
                 ->fireSwalEvent();
+
             return;
         }
 
     }
 
-    public function addProduct (Product $product)
+    public function addProduct(Product $product)
     {
         $existingItemKey = $this->orderItems->search(function ($item) use ($product) {
             return $item['product_id'] === $product->id;
@@ -111,6 +119,7 @@ class OrderCreate extends Component
 
         if ($existingItemKey !== false) {
             $this->__increaseQuantity($existingItemKey);
+
             return;
         }
 
@@ -131,14 +140,14 @@ class OrderCreate extends Component
         });
 
         if ($existingItemKey !== false) {
-            if($this->orderItems[$existingItemKey]['quantity'] >= $product->stock) {
+            if ($this->orderItems[$existingItemKey]['quantity'] >= $product->stock) {
                 throw new \Exception('Product quantity is not enough');
             }
         }
     }
 
     #[On('productRemoved')]
-    public function removeOrderItem (Product $product)
+    public function removeOrderItem(Product $product)
     {
         $existingItemKey = $this->orderItems->search(function ($item) use ($product) {
             return $item['product_id'] === $product->id;
@@ -155,16 +164,16 @@ class OrderCreate extends Component
         Debugbar::info($this->orderItems);
     }
 
-    private function __increaseQuantity (int $existingItemKey)
+    private function __increaseQuantity(int $existingItemKey)
     {
         $this->orderItems = $this->orderItems->transform(function ($item, $key) use ($existingItemKey) {
             if ($key === $existingItemKey) {
                 $item['quantity']++;
             }
+
             return $item;
         });
     }
-
 
     private function __decreaseQuantity(int $existingItemKey)
     {
@@ -172,6 +181,7 @@ class OrderCreate extends Component
             if ($key === $existingItemKey) {
                 $item['quantity']--;
             }
+
             return $item;
         });
     }
@@ -184,10 +194,10 @@ class OrderCreate extends Component
         });
     }
 
-    public function saveOrder (CreateOrderAction $createOrderAction)
+    public function saveOrder(CreateOrderAction $createOrderAction)
     {
 
-        try{
+        try {
             $validated = $this->validate();
             $orderStoreDTO = new OrderStoreDTO(
                 customer_id: $this->customer_id,
@@ -203,19 +213,19 @@ class OrderCreate extends Component
                 ->setParams([
                     'title' => 'Success',
                     'text' => 'Order created successfully',
-                    'footer' => 'Order ID: ' . $order->id,
-                    'emit' => 'redirectConfirmed'
+                    'footer' => 'Order ID: '.$order->id,
+                    'emit' => 'redirectConfirmed',
                 ])
                 ->fireSwalEvent();
 
-                $this->reset([
-                    'customer_id',
-                    'status',
-                    'total',
-                    'showSaveButton'
-                ]);
+            $this->reset([
+                'customer_id',
+                'status',
+                'total',
+                'showSaveButton',
+            ]);
 
-                $this->orderItems = collect();
+            $this->orderItems = collect();
 
         } catch (\Exception $e) {
             LivewireSwal::make($this)
@@ -224,9 +234,10 @@ class OrderCreate extends Component
                 ->setParams([
                     'title' => 'Error',
                     'text' => 'An error occurred while creating the order',
-                    'footer' => $e->getMessage()
+                    'footer' => $e->getMessage(),
                 ])
                 ->fireSwalEvent();
+
             return;
         }
     }
@@ -241,6 +252,7 @@ class OrderCreate extends Component
         $this->setTotal();
         $this->setShowButton();
         Debugbar::info($this->orderItems);
+
         return view('livewire.order-create');
     }
 }

@@ -4,7 +4,6 @@ namespace App\DTO;
 
 class CustomerStoreDTO
 {
-
     public function __construct(
         public string $first_name,
         public string $last_name,
@@ -34,5 +33,4 @@ class CustomerStoreDTO
             'phone' => $this->phone,
         ];
     }
-
 }

@@ -2,9 +2,8 @@
 
 namespace App\Repositories\Eloquent;
 
-
-use Spatie\Permission\Models\Role;
 use App\Repositories\Contracts\RoleRepositoryContract;
+use Spatie\Permission\Models\Role;
 
 class RoleRepository extends BaseRepository implements RoleRepositoryContract
 {

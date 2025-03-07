@@ -2,7 +2,4 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-class UserController
-{
-
-}
+class UserController {}

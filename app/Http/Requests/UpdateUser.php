@@ -2,15 +2,13 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
-use Spatie\Permission\Models\Role;
-use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
+use Spatie\Permission\Models\Role;
 
 class UpdateUser extends FormRequest
 {
-
     public function rules(): array
     {
         return [
@@ -18,7 +16,7 @@ class UpdateUser extends FormRequest
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($this->user)],
             'role' => [
                 'required',
-                Rule::in(Role::pluck('name')->toArray())
+                Rule::in(Role::pluck('name')->toArray()),
             ],
             'password' => ['nullable', Password::defaults()],
         ];

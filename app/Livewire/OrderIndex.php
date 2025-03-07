@@ -2,18 +2,15 @@
 
 namespace App\Livewire;
 
-use Debugbar;
-use App\Models\Order;
-use Livewire\Component;
 use App\Enums\OrderStatus;
-use Livewire\Attributes\On;
-use Livewire\WithPagination;
-use App\Helpers\LivewireSwal;
-use Livewire\Attributes\Lazy;
 use App\Services\OrderService;
-use Livewire\Attributes\Computed;
+use Debugbar;
 use Illuminate\Contracts\View\View;
-use App\Repositories\Contracts\OrderRepositoryContract;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Lazy;
+use Livewire\Attributes\On;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 #[Lazy]
 class OrderIndex extends Component
@@ -25,11 +22,12 @@ class OrderIndex extends Component
     public $paginationCount = 15;
 
     public array $statuses = [];
+
     public string $filteredStatus = '';
 
     public function mount()
     {
-        if (!empty($this->search)) {
+        if (! empty($this->search)) {
             $this->updatedSearch($this->search);
         }
 

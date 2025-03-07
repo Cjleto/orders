@@ -1,20 +1,15 @@
 <?php
 
-use App\Models\User;
-use App\Models\Order;
-use App\Models\Product;
-use App\Models\Customer;
-use App\DTO\OrderStoreApiDTO;
-use Illuminate\Http\Response;
-use App\Services\OrderService;
-use Illuminate\Http\JsonResponse;
-use App\Http\Resources\OrderResource;
 use App\Actions\Order\CreateOrderApiAction;
-use App\Enums\OrderStatus;
-use App\Http\Requests\StoreOrderApiRequest;
-use Database\Seeders\PermissionsRolesSeeder;
-use App\Http\Controllers\Api\V1\OrderController;
+use App\Http\Resources\OrderResource;
+use App\Models\Customer;
+use App\Models\Order;
 use App\Models\OrderProduct;
+use App\Models\Product;
+use App\Models\User;
+use App\Services\OrderService;
+use Database\Seeders\PermissionsRolesSeeder;
+use Illuminate\Http\Response;
 
 beforeEach(function () {
 
@@ -22,7 +17,6 @@ beforeEach(function () {
     $this->orderService = mock(OrderService::class);
     $this->app->instance(OrderService::class, $this->orderService);
     $this->createOrderApiAction = mock(CreateOrderApiAction::class);
-
 
     $this->user = User::factory()->admin()->create();
     $this->actingAs($this->user);
@@ -106,25 +100,24 @@ it('can delete an order', function () {
     expect(Order::find($order->id))->toBeNull();
 });
 
-
-it('can retrieve products in order show', function(){
+it('can retrieve products in order show', function () {
     $order = Order::factory()->create();
     $product = Product::factory()->create();
-/*     $order->products()->attach($product->product_id, [
-        'quantity' => $product->quantity,
-        'product_name' => $product->product_name,
-        'product_price' => $product->product_price
-    ]); */
+    /*     $order->products()->attach($product->product_id, [
+            'quantity' => $product->quantity,
+            'product_name' => $product->product_name,
+            'product_price' => $product->product_price
+        ]); */
 
     $orderProduct = OrderProduct::create([
         'order_id' => $order->id,
         'product_id' => $product->id,
         'quantity' => 10,
         'product_name' => $product->name,
-        'product_price' => $product->price
+        'product_price' => $product->price,
     ]);
 
-    $response = $this->getJson(route('api.orders.show', $order->id) . '?include=customer,products');
+    $response = $this->getJson(route('api.orders.show', $order->id).'?include=customer,products');
 
     $response->assertOk()
         ->assertJsonPath('data.products.0.id', $product->id);

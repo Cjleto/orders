@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\Order;
-use Illuminate\Http\Request;
-use App\DTO\OrderStoreApiDTO;
-use App\Services\OrderService;
-use App\Http\Resources\OrderResource;
-use App\Http\Controllers\ApiController;
 use App\Actions\Order\CreateOrderApiAction;
+use App\DTO\OrderStoreApiDTO;
+use App\Http\Controllers\ApiController;
 use App\Http\Requests\StoreOrderApiRequest;
+use App\Http\Resources\OrderResource;
+use App\Models\Order;
+use App\Services\OrderService;
+use Illuminate\Http\Request;
 
 class OrderController extends ApiController
 {
@@ -20,6 +20,7 @@ class OrderController extends ApiController
     public function index()
     {
         $orders = $this->orderService->getWithSortingAndIncludes();
+
         return OrderResource::collection($orders);
     }
 
@@ -28,8 +29,8 @@ class OrderController extends ApiController
         $validated = $request->validated();
         $dto = OrderStoreApiDTO::fromRequest($validated);
 
-
         $order = $createOrderApiAction->execute($dto);
+
         return $this->success(new OrderResource($order), 201);
     }
 
@@ -44,6 +45,7 @@ class OrderController extends ApiController
     public function destroy(string $id)
     {
         $this->orderService->delete($id);
+
         return $this->success();
     }
 }

@@ -2,20 +2,17 @@
 
 namespace App\Livewire;
 
-use App\Models\Product;
-use Livewire\Component;
-use Illuminate\Support\Arr;
 use App\DTO\ProductUpdateDTO;
 use App\Helpers\LivewireSwal;
-use Livewire\Attributes\Lazy;
-use Livewire\WithFileUploads;
-use App\Services\ProductService;
 use App\Http\Requests\ProductRequest;
-
+use App\Models\Product;
+use App\Services\ProductService;
+use Illuminate\Support\Arr;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class ProductEdit extends Component
 {
-
     use WithFileUploads;
 
     public Product $product;
@@ -23,12 +20,16 @@ class ProductEdit extends Component
     public $newPhoto;
 
     public $name;
+
     public $description;
+
     public $price;
+
     public $photo;
+
     public $stock;
 
-    public function mount ()
+    public function mount()
     {
         $this->name = $this->product->name;
         $this->description = (string) $this->product->description;
@@ -54,14 +55,14 @@ class ProductEdit extends Component
 
         try {
 
-            $updateProductDto = ProductUpdateDTO::fromRequest($validated,$this->product->id);
+            $updateProductDto = ProductUpdateDTO::fromRequest($validated, $this->product->id);
 
             $productService->update($updateProductDto);
 
             $this->loadPhoto();
 
             $this->reset([
-                'newPhoto'
+                'newPhoto',
             ]);
 
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -75,6 +76,7 @@ class ProductEdit extends Component
                     'footer' => trans('validation.validation_invitation'),
                 ])
                 ->fireSwalEvent();
+
             return;
         } catch (\Exception $e) {
             LivewireSwal::make($this)
@@ -82,22 +84,21 @@ class ProductEdit extends Component
                 ->setParams([
                     'title' => 'Error',
                     'text' => trans('validation.product_update_error'),
-                    'footer' => $e->getMessage()
+                    'footer' => $e->getMessage(),
                 ])
                 ->fireSwalEvent();
+
             return;
         }
 
         $this->dispatch('productUpdated');
 
-
-
         LivewireSwal::make($this)
             ->success()
             ->setParams([
-                'title' => trans('success') . "!",
-                'text' => trans('product') . ' ' . trans('updated_successfully'),
-                'emit' => 'close-modal'
+                'title' => trans('success').'!',
+                'text' => trans('product').' '.trans('updated_successfully'),
+                'emit' => 'close-modal',
             ])
             ->fireSwalEvent();
 

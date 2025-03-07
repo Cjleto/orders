@@ -1,7 +1,5 @@
 <?php
 
-use Database\Seeders\PermissionsRolesSeeder;
-
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -17,7 +15,7 @@ uses(
     Tests\TestCase::class,
     Illuminate\Foundation\Testing\RefreshDatabase::class,
 
-)->in('Feature','Unit');
+)->in('Feature', 'Unit');
 
 /*
 |--------------------------------------------------------------------------

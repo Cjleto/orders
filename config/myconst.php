@@ -7,13 +7,13 @@ return [
             'manage_roles',
             'manage_orders',
             'manage_customers',
-            'manage_products'
+            'manage_products',
         ],
         'customer' => [
             'manage_orders',
             'manage_customers',
-            'manage_products'
-        ]
+            'manage_products',
+        ],
     ],
     'currency_symbol' => env('CURRENCY_SYMBOL', '€'),
     'cache_ttl_sec' => env('CACHE_TTL', 10),

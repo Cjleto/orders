@@ -3,7 +3,6 @@
 namespace Tests;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Context;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -14,7 +13,6 @@ abstract class TestCase extends BaseTestCase
 
         // Disabilita eventi globalmente
         // Model::unsetEventDispatcher();
-
 
     }
 }

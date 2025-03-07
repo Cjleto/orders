@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use App\Models\Customer;
 use App\DTO\CustomerStoreDTO;
 use App\DTO\CustomerUpdateDTO;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
+use App\Models\Customer;
 use App\Repositories\Contracts\CustomerRepositoryContract;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * @property CustomerRepository customerRepository
@@ -17,14 +17,14 @@ class CustomerService
 {
     public function __construct(
         protected CustomerRepositoryContract $customerRepository,
-    ){}
+    ) {}
 
     public function all(): Collection
     {
         return $this->customerRepository->findAll();
     }
 
-    public function store (CustomerStoreDTO $userStoreDTO): Customer
+    public function store(CustomerStoreDTO $userStoreDTO): Customer
     {
 
         $customer = $this->customerRepository->create($userStoreDTO->toArray());
@@ -32,7 +32,6 @@ class CustomerService
         return $customer;
 
     }
-
 
     public function update(CustomerUpdateDTO $customerUpdateDTO): Customer
     {
@@ -50,7 +49,7 @@ class CustomerService
         return $this->customerRepository->paginate($perPage);
     }
 
-    public function delete(int $id): bool|null
+    public function delete(int $id): ?bool
     {
         return $this->customerRepository->delete($id);
     }
@@ -65,5 +64,4 @@ class CustomerService
     {
         return $this->customerRepository->getWithSortingAndIncludes();
     }
-
 }

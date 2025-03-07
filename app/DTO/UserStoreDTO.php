@@ -4,7 +4,6 @@ namespace App\DTO;
 
 class UserStoreDTO
 {
-
     public function __construct(
         public string $name,
         public string $email,
@@ -31,5 +30,4 @@ class UserStoreDTO
             role: $data['role'],
         );
     }
-
 }

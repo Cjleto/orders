@@ -2,11 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UpdateCustomer extends FormRequest
 {
@@ -20,21 +18,21 @@ class UpdateCustomer extends FormRequest
 
         $rules = [
             'first_name' => [
-                'required','min:2','max:55'
+                'required', 'min:2', 'max:55',
             ],
             'last_name' => [
-                'required','min:2','max:55'
+                'required', 'min:2', 'max:55',
             ],
             'email' => [
                 'required',
                 'email',
-                Rule::unique('customers')->ignore($this->route('customer')->email, 'email')
+                Rule::unique('customers')->ignore($this->route('customer')->email, 'email'),
             ],
             'address' => [
-                'required','min:2','max:255'
+                'required', 'min:2', 'max:255',
             ],
             'phone' => [
-                'required', 'regex:/^(?:\+39)?\s?(3[1-9]\d{8})$/'
+                'required', 'regex:/^(?:\+39)?\s?(3[1-9]\d{8})$/',
             ],
         ];
 

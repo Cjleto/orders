@@ -5,21 +5,20 @@ namespace App\Models;
 use App\Interfaces\HasIncludableRelations;
 use App\Interfaces\HasSortableFields;
 use App\Traits\HasNameUcfirst;
-use Spatie\MediaLibrary\HasMedia;
 use Database\Factories\ProductFactory;
-use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 #[UseFactory(ProductFactory::class)]
-class Product extends Model implements HasMedia, HasSortableFields, HasIncludableRelations
+class Product extends Model implements HasIncludableRelations, HasMedia, HasSortableFields
 {
-
-    use HasFactory, InteractsWithMedia, HasNameUcfirst;
+    use HasFactory, HasNameUcfirst, InteractsWithMedia;
 
     protected $fillable = [
         'name',
@@ -31,7 +30,6 @@ class Product extends Model implements HasMedia, HasSortableFields, HasIncludabl
     protected $casts = [
         'price' => 'decimal:2',
     ];
-
 
     public function getSortableFields(): array
     {
@@ -57,10 +55,9 @@ class Product extends Model implements HasMedia, HasSortableFields, HasIncludabl
     }
 
     /** ACCESSORS */
-
     public function getFormattedPriceAttribute(): string
     {
-        return number_format($this->price, 2, ',', '.') . ' ' . config('myconst.currency_symbol');
+        return number_format($this->price, 2, ',', '.').' '.config('myconst.currency_symbol');
     }
 
     public function setPriceAttribute($value): void
