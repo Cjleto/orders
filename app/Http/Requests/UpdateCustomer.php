@@ -18,7 +18,7 @@ class UpdateCustomer extends FormRequest
     public function rules(): array
     {
 
-        return [
+        $rules = [
             'first_name' => [
                 'required','min:2','max:55'
             ],
@@ -28,7 +28,7 @@ class UpdateCustomer extends FormRequest
             'email' => [
                 'required',
                 'email',
-                Rule::unique('customers')->ignore($this->route('customer')->id)
+                Rule::unique('customers')->ignore($this->route('customer')->email, 'email')
             ],
             'address' => [
                 'required','min:2','max:255'
@@ -37,5 +37,7 @@ class UpdateCustomer extends FormRequest
                 'required', 'regex:/^(?:\+39)?\s?(3[1-9]\d{8})$/'
             ],
         ];
+
+        return $rules;
     }
 }

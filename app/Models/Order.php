@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Enums\OrderStatus;
+use App\Interfaces\HasIncludableRelations;
 use Spatie\Activitylog\LogOptions;
 use Database\Factories\OrderFactory;
+use App\Interfaces\HasSortableFields;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -12,14 +14,27 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
 
 #[UseFactory(OrderFactory::class)]
-class Order extends Model
+class Order extends Model implements HasSortableFields, HasIncludableRelations
 {
 
     use HasFactory, HasUuids, LogsActivity;
 
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = ['customer_id', 'status', 'total'];
 
-    protected $with = ['products','customer'];
+    /* protected $with = ['products','customer']; */
+
+    public function getSortableFields(): array
+    {
+        return ['id', 'status', 'total', 'created_at'];
+    }
+
+    public function getIncludableRelations(): array
+    {
+        return ['products', 'customer'];
+    }
 
     protected $casts = [
         'total' => 'float',

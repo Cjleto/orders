@@ -11,19 +11,20 @@ final readonly class ProductUpdateDTO
         public string $name,
         public string $description,
         public float $price,
-        public ?TemporaryUploadedFile $newPhoto = null,
+        /** @var TemporaryUploadedFile|UploadedFile|null */
+        public mixed $newPhoto = null,
         public int $stock = 0
     ) {}
 
-    public static function fromRequest(array $data): self
+    public static function fromRequest(array $data, int $productId): self
     {
         return new self(
-            $data['id'],
-            $data['name'],
-            $data['description'],
-            $data['price'],
-            $data['newPhoto'] ?? null,
-            $data['stock'] ?? 0
+            id: $productId,
+            name: $data['name'],
+            description: $data['description'],
+            price: $data['price'],
+            newPhoto: $data['newPhoto'] ?? null,
+            stock: $data['stock'] ?? 0
         );
     }
 }

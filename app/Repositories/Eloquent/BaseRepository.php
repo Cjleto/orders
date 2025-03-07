@@ -2,10 +2,13 @@
 
 namespace App\Repositories\Eloquent;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositories\Contracts\BaseContract;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 abstract class BaseRepository implements BaseContract
 {
@@ -39,7 +42,7 @@ abstract class BaseRepository implements BaseContract
         return $model;
     }
 
-    public function delete(int $id): bool|null
+    public function delete(string $id): bool|null
     {
         $model = $this->model->find($id);
         return $model->delete();
@@ -60,5 +63,78 @@ abstract class BaseRepository implements BaseContract
     public function searchByFieldPaginated(string $field, string $search, int $paginationCount = 10): LengthAwarePaginator
     {
         return $this->model->where($field, 'LIKE', "%$search%")->paginate($paginationCount);
+    }
+
+    public function getWithRelations(array $relations = [], ?int $perPage = null)
+    {
+        $query = $this->model->with($relations);
+
+        return $perPage ? $query->simplePaginate($perPage) : $query->get();
+    }
+
+    public function applySorting($query)
+    {
+        $sortBy = request()->query('sort_by', 'id'); // Default: id
+        $order = request()->query('order', 'asc'); // Default: asc
+
+        // Aggiungi la logica per validare i campi ordinabili
+        $sortableFields = $this->model->getSortableFields();
+
+        if (in_array($sortBy, $sortableFields)) {
+            $query->orderBy($sortBy, $order);
+        }
+
+        return $query;
+    }
+
+    public function applyIncludes($query): Builder
+    {
+        $includes = request()->query('include', null);
+
+        if ($includes) {
+            $includeFields = explode(',', $includes);
+            $query->with($includeFields);
+        }
+
+        return $query;
+    }
+
+
+    public function getWithSortingAndIncludes(array $relations = [], ?int $perPage = null)
+    {
+        // Crea una chiave unica per la cache basata sulle condizioni
+        $cacheKey = 'model_data.' . md5(
+            implode(',', $relations) .
+                '-' . request()->query('sort_by', 'id') . // Modificato per ottenere direttamente il parametro di ordinamento
+                '-' . request()->query('order', 'asc') . // Modificato per ottenere direttamente il parametro di ordine
+                '-' . $perPage
+        );
+
+        return Cache::remember($cacheKey, now()->addSeconds(config('myconst.cache_ttl_sec')) , function () use ($relations, $perPage) {
+
+
+            DB::listen(function ($query) {
+                info('Query Executed: ' . $query->sql);
+                //info('Bindings: ' . implode(', ', $query->bindings));
+                info('Time: ' . $query->time . 'ms');
+            });
+
+
+            $query = $this->model->query();
+
+            // Applica gli includes
+            $query = $this->applyIncludes($query);
+
+            // Applica il sorting
+            $query = $this->applySorting($query);
+
+            // Applica le relazioni (se specificate)
+            if ($relations) {
+                $query = $query->with($relations);
+            }
+
+            // Gestisce la paginazione se presente
+            return $perPage ? $query->simplePaginate($perPage) : $query->get();
+        });
     }
 }
