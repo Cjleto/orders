@@ -33,7 +33,7 @@ class OrderController extends ApiController
 
 
         $order = $createOrderApiAction->execute($dto);
-        return $this->success(new OrderResource($order));
+        return $this->success(new OrderResource($order), 201);
     }
 
     public function show(Request $request, Order $order)
