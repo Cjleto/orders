@@ -61,4 +61,58 @@ abstract class BaseRepository implements BaseContract
     {
         return $this->model->where($field, 'LIKE', "%$search%")->paginate($paginationCount);
     }
+
+    public function getWithRelations(array $relations = [], ?int $perPage = null)
+    {
+        $query = $this->model->with($relations);
+
+        return $perPage ? $query->simplePaginate($perPage) : $query->get();
+    }
+
+    public function applySorting($query)
+    {
+        $sortBy = request()->query('sort_by', 'id'); // Default: id
+        $order = request()->query('order', 'asc'); // Default: asc
+
+        // Aggiungi la logica per validare i campi ordinabili
+        $sortableFields = $this->model->getSortableFields();
+
+        if (in_array($sortBy, $sortableFields)) {
+            $query->orderBy($sortBy, $order);
+        }
+
+        return $query;
+    }
+
+    public function applyIncludes($query)
+    {
+        $includes = request()->query('include', null);
+
+        if ($includes) {
+            $includeFields = explode(',', $includes);
+            $query->with($includeFields);
+        }
+
+        return $query;
+    }
+
+
+    public function getWithSortingAndIncludes(array $relations = [], ?int $perPage = null)
+    {
+        $query = $this->model->query();
+
+        // Applica gli includes
+        $query = $this->applyIncludes($query);
+
+        // Applica il sorting
+        $query = $this->applySorting($query);
+
+        // Applica le relazioni (se specificate)
+        if ($relations) {
+            $query = $query->with($relations);
+        }
+
+        // Gestisce la paginazione se presente
+        return $perPage ? $query->simplePaginate($perPage) : $query->get();
+    }
 }

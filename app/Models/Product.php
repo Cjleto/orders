@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-
+use App\Interfaces\HasIncludableRelations;
+use App\Interfaces\HasSortableFields;
+use App\Traits\HasNameUcfirst;
 use Spatie\MediaLibrary\HasMedia;
 use Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,10 +16,10 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
 
 #[UseFactory(ProductFactory::class)]
-class Product extends Model implements HasMedia
+class Product extends Model implements HasMedia, HasSortableFields, HasIncludableRelations
 {
 
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, HasNameUcfirst;
 
     protected $fillable = [
         'name',
@@ -30,6 +32,18 @@ class Product extends Model implements HasMedia
         'price' => 'decimal:2',
     ];
 
+
+    public function getSortableFields(): array
+    {
+        return ['id', 'name', 'price', 'stock', 'created_at'];
+    }
+
+    public function getIncludableRelations(): array
+    {
+        return ['orders'];
+    }
+
+    /** RELATIONSHIPS */
     public function orders()
     {
         return $this->belongsToMany(Order::class, 'order_product')

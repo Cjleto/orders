@@ -8,6 +8,7 @@ use App\DTO\CustomerUpdateDTO;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Repositories\Contracts\CustomerRepositoryContract;
+use Illuminate\Contracts\Pagination\Paginator;
 
 /**
  * @property CustomerRepository customerRepository
@@ -26,13 +27,7 @@ class CustomerService
     public function store (CustomerStoreDTO $userStoreDTO): Customer
     {
 
-        $customer = $this->customerRepository->create([
-            'first_name' => $userStoreDTO->first_name,
-            'last_name' => $userStoreDTO->last_name,
-            'email' => $userStoreDTO->email,
-            'address' => $userStoreDTO->address,
-            'phone' => $userStoreDTO->phone,
-        ]);
+        $customer = $this->customerRepository->create($userStoreDTO->toArray());
 
         return $customer;
 
@@ -44,15 +39,7 @@ class CustomerService
 
         $customer = $this->customerRepository->find($customerUpdateDTO->id);
 
-        $data = [
-            'first_name' => $customerUpdateDTO->first_name,
-            'last_name' => $customerUpdateDTO->last_name,
-            'email' => $customerUpdateDTO->email,
-            'address' => $customerUpdateDTO->address,
-            'phone' => $customerUpdateDTO->phone,
-        ];
-
-        $customer->update($data);
+        $customer->update($customerUpdateDTO->toArray());
 
         return $customer;
 
@@ -66,6 +53,17 @@ class CustomerService
     public function delete(int $id): bool|null
     {
         return $this->customerRepository->delete($id);
+    }
+
+    public function getWithRelations(?int $perPage = null): Collection|Paginator
+    {
+        return $this->customerRepository->getWithRelations(['orders', 'orders.products', 'orders.products.photo'], $perPage);
+
+    }
+
+    public function getWithSortingAndIncludes(?int $perPage = null): Collection|Paginator
+    {
+        return $this->customerRepository->getWithSortingAndIncludes();
     }
 
 }
