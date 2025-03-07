@@ -20,12 +20,6 @@ jobs:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
-      redis:
-        image: redis
-        ports:
-          - 6379/tcp
-        options: --health-cmd="redis-cli ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -37,26 +31,34 @@ jobs:
           extensions: mbstring, dom, fileinfo, mysql
           coverage: none
 
+      - name: Check PHP version
+        run: php -v
+
+      - name: Check Composer version
+        run: composer --version
+
+      - name: Clear Composer Cache
+        run: composer clear-cache
+
       - name: Copy .env
         run: cp -v ci.env .env
 
-      - name: Cache Vendor
-        id: cache-vendor
-        uses: actions/cache@v3
-        with:
-          path: |
-            vendor
-            !vendor/**/tests
-            !vendor/**/docs
-            !vendor/**/examples
-          key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
+      - name: Configure Composer Cache
+        run: composer config cache-files-dir ~/.composer/cache
 
       - name: Install dependencies
         if: steps.cache-vendor.outputs.cache-hit != 'true'
-        run: composer install --prefer-dist --no-progress
+        run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Generate key
         run: php artisan key:generate
+
+      - name: Wait for MySQL to be ready
+        run: |
+          until mysqladmin ping --host=127.0.0.1 --port=3306 --silent; do
+            echo "Waiting for MySQL..."
+            sleep 5
+          done
 
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
