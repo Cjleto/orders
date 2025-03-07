@@ -10,9 +10,9 @@ use App\Http\Controllers\Api\V1\CustomerController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->name('api.')->group(function () {
 
-    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     // Rotte per i prodotti
     Route::apiResource('products', ProductController::class);

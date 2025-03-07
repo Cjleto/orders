@@ -29,7 +29,7 @@ class ProductController extends ApiController
         $validated = $request->validated();
         $dto = ProductStoreDTO::fromRequest($validated);
         $customer = $this->productService->create($dto);
-        return $this->success(new ProductResource($customer));
+        return $this->success(new ProductResource($customer), 201);
     }
 
     public function show(Request $request, Product $product)
