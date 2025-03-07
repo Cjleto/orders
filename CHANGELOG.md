@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.1](https://github.com/Cjleto/orders/compare/v1.1.0...v1.1.1) (2025-03-07)
+
+
+### Bug Fixes
+
+* improve validation and error messages for product creation form ([e1ffd95](https://github.com/Cjleto/orders/commit/e1ffd95cea3229bbc6ff0b54b759c04d406622d5))
+
+
+### Miscellaneous Chores
+
+* run pint ([97d2146](https://github.com/Cjleto/orders/commit/97d2146fd53314653226b7d5bdec1b1b3d1e715d))
+
 ## [1.1.0](https://github.com/Cjleto/orders/compare/v1.0.0...v1.1.0) (2025-03-07)
 
 
