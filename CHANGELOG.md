@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/Cjleto/orders/compare/v1.3.0...v1.4.0) (2025-03-09)
+
+
+### Features
+
+* add ClearCacheOnModelChange trait and implement cache clearing … ([9cff246](https://github.com/Cjleto/orders/commit/9cff246bdf40d0ad49dd910c520df447b9ca1cf3))
+
 ## [1.3.0](https://github.com/Cjleto/orders/compare/v1.2.0...v1.3.0) (2025-03-09)
 
 
