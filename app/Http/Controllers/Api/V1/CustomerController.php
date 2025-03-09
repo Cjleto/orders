@@ -18,6 +18,9 @@ class CustomerController extends ApiController
         protected CustomerService $customerService
     ) {}
 
+    /**
+     * @see OpenApiCustomer::index()
+     */
     public function index()
     {
         $customers = $this->customerService->getWithSortingAndIncludes();
@@ -26,6 +29,9 @@ class CustomerController extends ApiController
 
     }
 
+    /**
+     * @see OpenApiCustomer::store()
+     */
     public function store(StoreCustomer $request)
     {
         $validated = $request->validated();
@@ -35,6 +41,9 @@ class CustomerController extends ApiController
         return $this->success(new CustomerResource($customer));
     }
 
+    /**
+     * @see OpenApiCustomer::show()
+     */
     public function show(Request $request, Customer $customer)
     {
 
@@ -43,6 +52,9 @@ class CustomerController extends ApiController
         return $this->success(new CustomerResource($customer));
     }
 
+    /**
+     * @see OpenApiCustomer::update()
+     */
     public function update(UpdateCustomer $request, Customer $customer)
     {
         $validated = $request->validated();
@@ -52,6 +64,9 @@ class CustomerController extends ApiController
         return $this->success(new CustomerResource($customer));
     }
 
+    /**
+     * @see OpenApiCustomer::destroy()
+     */
     public function destroy(string $id)
     {
         $this->customerService->delete($id);

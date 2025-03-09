@@ -6,6 +6,45 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
+/**
+ * @OA\Schema(
+ *     schema="UpdateCustomer",
+ *     type="object",
+ *     title="Update Customer Request",
+ *     required={"first_name", "last_name", "email", "address", "phone"},
+ *     @OA\Property(
+ *         property="first_name",
+ *         type="string",
+ *         description="First name of the customer",
+ *         example="John"
+ *     ),
+ *     @OA\Property(
+ *         property="last_name",
+ *         type="string",
+ *         description="Last name of the customer",
+ *         example="Doe"
+ *     ),
+ *     @OA\Property(
+ *         property="email",
+ *         type="string",
+ *         format="email",
+ *         description="Email address of the customer",
+ *         example="john.doe@example.com"
+ *     ),
+ *     @OA\Property(
+ *         property="address",
+ *         type="string",
+ *         description="Address of the customer",
+ *         example="123 Main St, Anytown, USA"
+ *     ),
+ *     @OA\Property(
+ *         property="phone",
+ *         type="string",
+ *         description="Phone number of the customer",
+ *         example="+393331234567"
+ *     )
+ * )
+ */
 class UpdateCustomer extends FormRequest
 {
     public function authorize(): bool

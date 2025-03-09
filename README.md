@@ -11,10 +11,11 @@
 - Gestione della paginazione api tramite middleware SetPagination
 - Utilizzo delle ApiResoource di laravel per favorire la consistenza dei dati
 - Le API supportano il caricamento dinamico delle relazioni tramite il parametro `include` nella query string. Solo le relazioni dichiarate nel modello come includibili vengono caricate.
-
+- Documentazione testabile API raggiungibile alla rotta `/api/documentation`
+- Consultazione Log di sistema al path log-viewer alla rotta `/log-viewer`
 
 ## Design Patterns
-- Repository: ()
+- Repository:
     - Incapsula le query al database  
     - Permette di sostituire facilmente il livello di persistenza  
     - Favorisce l’uso di interfacce per testare con mock 
@@ -28,6 +29,8 @@
     - Decoupla l’azione principale dagli effetti collaterali
     - Consente l’uso di operazioni asincrone
     - Facilita l’aggiunta di nuove logiche senza modificare il codice esistente
+- Observer: 
+    - il trait `LogsActivity` ascolta gli eventi sui model registrando i log
 
 ```mermaid
 flowchart TB
@@ -123,12 +126,12 @@ Cosa inseriscono i seeder:
 - 10 Prodotti tramite Factory
 - 10 Ordini tramite Factory
 
-## Test
+## Tool
 - Esegui i test `./vendor/bin/sail artisan test` (`--parallel` processo più veloce)
 - Verifica lo stile del codice: `./vendor/bin/sail php ./vendor/bin/pint --test`
+- Genera la documentazione API usando il comando: `./vendor/bin/sail artisan l5-swagger:generate`
 
 ## Da fare
-- Genera la documentazione API usando il comando: `./vendor/bin/sail artisan scribe:generate`
 - Accedi alla documentazione API generata su `http://localhost:${APP_PORT}/docs`
 - Esegui l'analisi del codice statico: `./vendor/bin/sail php ./vendor/bin/phpstan analyse --memory-limit=2G`
 - Estendere l'utilizzo dei metodi in cache

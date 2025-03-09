@@ -10,6 +10,8 @@ class AuthController extends Controller
 {
     /**
      * Effettua il login e restituisce un token di autenticazione.
+     *
+     * @see OpenApiAuth::login()
      */
     public function login(Request $request)
     {
@@ -39,6 +41,8 @@ class AuthController extends Controller
 
     /**
      * Effettua il logout e revoca il token di autenticazione.
+     *
+     * @see OpenApiAuth::logout()
      */
     public function logout(Request $request)
     {
