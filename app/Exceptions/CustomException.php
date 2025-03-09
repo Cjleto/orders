@@ -26,7 +26,7 @@ class CustomException extends Exception
 
             return response()->json(
                 $data,
-                self::getCode()
+                $this->getCode() ?: 500
             );
         }
 
@@ -53,6 +53,11 @@ class CustomException extends Exception
     }
 
     public static function unprocessableContent(string $message = 'Bad request, something goes wrong', int $code = 422)
+    {
+        return new self($message, $code);
+    }
+
+    public static function withMessage(string $message, int $code = 500)
     {
         return new self($message, $code);
     }

@@ -13,6 +13,7 @@
 - Le API supportano il caricamento dinamico delle relazioni tramite il parametro `include` nella query string. Solo le relazioni dichiarate nel modello come includibili vengono caricate.
 - Documentazione testabile API raggiungibile alla rotta `/api/documentation`
 - Consultazione Log di sistema al path log-viewer alla rotta `/log-viewer`
+- Gestione errori api centralizzata in app.php e customException
 
 ## Design Patterns
 - Repository:
@@ -132,7 +133,6 @@ Cosa inseriscono i seeder:
 - Genera la documentazione API usando il comando: `./vendor/bin/sail artisan l5-swagger:generate`
 
 ## Da fare
-- Accedi alla documentazione API generata su `http://localhost:${APP_PORT}/docs`
 - Esegui l'analisi del codice statico: `./vendor/bin/sail php ./vendor/bin/phpstan analyse --memory-limit=2G`
 - Estendere l'utilizzo dei metodi in cache
 - Aggiungere altri unit e feature test
