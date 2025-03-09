@@ -70,6 +70,12 @@ class Order extends Model implements HasIncludableRelations, HasSortableFields
         return $this->hasMany(OrderHistoryStep::class);
     }
 
+    /** SCOPE */
+    public function scopeCompleted($query)
+    {
+        return $query->where('status', OrderStatus::CONSEGNATO);
+    }
+
     /** ACCESSORS */
     public function getFormattedTotalAttribute(): string
     {

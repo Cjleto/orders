@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Enums\OrderStatus;
+use App\Exceptions\CustomException;
 use App\Models\Order;
 use App\Repositories\Contracts\OrderRepositoryContract;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 
@@ -71,4 +73,42 @@ class OrderService
     {
         return $this->orderRepository->getWithSortingAndIncludes();
     }
+
+    public function isCompleted(Order $order): bool
+    {
+        return $order->status == OrderStatus::CONSEGNATO;
+    }
+
+    public function storeOrderItems (Order $order, Collection $orderItems): void
+    {
+
+        if($this->isCompleted($order)) {
+            throw new CustomException('Order is already completed and cannot be updated');
+        }
+
+        foreach ($orderItems as $item) {
+            $order->products()->attach($item['product_id'], [
+                'quantity' => $item['quantity'],
+                'product_name' => $item['product_name'],
+                'product_price' => $item['product_price'],
+            ]);
+
+            $product = $order->products()->find($item['product_id']);
+            $product->stock -= $item['quantity'];
+            $product->save();
+
+        }
+
+    }
+
+    public function calculateTotal(Order $order): void
+    {
+        $total = $order->products->sum(function ($product) {
+            return $product->pivot->quantity * $product->pivot->product_price;
+        });
+
+        $order->total = $total;
+        $order->save();
+    }
+
 }

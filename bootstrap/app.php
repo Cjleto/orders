@@ -33,23 +33,12 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->renderable(function (NotFoundHttpException $e, Request $request) {
-            if ($request->json()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Not Found Resource',
-                ], 404);
-            }
-
-            throw $e;
+            return CustomException::withMessage('Resource Not Found', $e->getStatusCode())->render($request);
         });
 
         $exceptions->renderable(function (Exception $e, Request $request) {
 
-            if ($request->json()) {
-                return CustomException::withMessage($e->getMessage(), $e->getCode())->render($request);
-            }
-
-            throw $e;
+            return CustomException::withMessage($e->getMessage(), $e->getCode())->render($request);
 
         });
     })->create();

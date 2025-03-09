@@ -2,17 +2,19 @@
 
 namespace Database\Seeders;
 
-use App\Models\Customer;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\User;
+use App\Models\Customer;
+use App\DTO\OrderProductDTO;
+use App\Services\OrderService;
 use Illuminate\Database\Seeder;
 
 class InitialDataSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+
+    public function __construct(private OrderService $orderService) {}
+
     public function run(): void
     {
 
@@ -26,18 +28,24 @@ class InitialDataSeeder extends Seeder
 
         $products = Product::factory()->count(10)->create();
 
-        Order::factory()->randomCreateDate()->count(10)->create()->each(function ($order) {
+        Order::factory()->randomStatus()->randomCreateDate()->count(10)->create()->each(function ($order) {
             // Prendi un numero random di prodotti (tra 1 e 4)
             $products = \App\Models\Product::inRandomOrder()->take(rand(1, 4))->get();
 
+            $orderProducts = $products->map(function ($product) {
+                $orderProductObj = new OrderProductDTO(
+                    product_id: $product->id,
+                    product_name: $product->name,
+                    quantity: rand(1, 5),
+                    product_price: $product->price
+                );
+
+                return $orderProductObj->toArray();
+            });
+
             // Associa i prodotti all'ordine con i dati della pivot
-            foreach ($products as $product) {
-                $order->products()->attach($product->id, [
-                    'quantity' => rand(1, 10), // Quantità casuale
-                    'product_name' => $product->name, // Nome dal prodotto
-                    'product_price' => $product->price, // Prezzo dal prodotto
-                ]);
-            }
+            $this->orderService->storeOrderItems($order, $orderProducts);
+            $this->orderService->calculateTotal($order);
         });
     }
 }

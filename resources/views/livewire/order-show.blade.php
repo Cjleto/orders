@@ -34,15 +34,13 @@
                 <div class="card-body">
                     <ul class="list-group">
                         @foreach ($order->items as $item)
-                            <li class="list-group-item">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <div class="card-text"><strong>Product:</strong> {{ $item->product_name }}</div>
-                                        <div class="card-text"><strong>Quantity:</strong> {{ $item->quantity }}</div>
-                                        <div class="card-text"><strong>Price:</strong> {{ $item->formatted_price }}</div>
-                                    </div>
+                            <div class="callout callout-primary">
+                                <div class="card-text"><strong>Product:</strong> {{ $item->product_name }}
                                 </div>
-                            </li>
+                                <div class="card-text"><strong>Quantity:</strong> {{ $item->quantity }}</div>
+                                <div class="card-text"><strong>Price:</strong> {{ $item->formatted_price }}
+                                </div>
+                            </div>
                         @endforeach
                     </ul>
                 </div>
@@ -55,19 +53,18 @@
                     <h3>{{ __('order') }} {{ __('history') }}</h3>
                 </div>
                 <div class="card-body">
-                    <ul class="list-group">
-                        @foreach ($historySteps as $step)
-                            <li class="list-group-item">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <div class="card-text"><strong>{{ __('status') }}:</strong> {{ $step->status }}</div>
-                                        <div class="card-text"><strong>{{ __('causer') }}:</strong> {{ $step->user->name }}</div>
-                                        <div class="card-text"><strong>{{ __('date') }}:</strong> {{ $step->created_at }}</div>
-                                    </div>
+                    @foreach ($historySteps as $step)
+                        <li class="list-group-item">
+                            <div class="callout callout-secondary">
+                                <div class="card-text"><strong>{{ __('status') }}:</strong> {{ $step->status }}
                                 </div>
-                            </li>
-                        @endforeach
-                    </ul>
+                                <div class="card-text"><strong>{{ __('causer') }}:</strong>
+                                    {{ $step->user->name }}</div>
+                                <div class="card-text"><strong>{{ __('date') }}:</strong>
+                                    {{ $step->created_at }}</div>
+                            </div>
+                        </li>
+                    @endforeach
                 </div>
             </div>
         </div>

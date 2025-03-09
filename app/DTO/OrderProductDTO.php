@@ -20,4 +20,5 @@ class OrderProductDTO
             'product_price' => $this->product_price,
         ];
     }
+
 }

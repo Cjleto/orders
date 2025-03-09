@@ -29,6 +29,18 @@ class OrderFactory extends Factory
         });
     }
 
+    public function randomStatus()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'status' => $this->faker->randomElement([
+                    OrderStatus::IN_ELABORAZIONE->value,
+                    OrderStatus::SPEDITO->value
+                ]),
+            ];
+        });
+    }
+
     public function in_elaborazione()
     {
         return $this->state([
