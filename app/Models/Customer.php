@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Traits\ClearCacheOnModelChange;
 use App\Interfaces\HasIncludableRelations;
 use App\Interfaces\HasSortableFields;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +12,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class Customer extends Model implements HasIncludableRelations, HasSortableFields
 {
-    use HasFactory, LogsActivity;
+    use HasFactory, LogsActivity, ClearCacheOnModelChange;
 
     protected $fillable = ['first_name', 'last_name', 'email', 'address', 'phone'];
 

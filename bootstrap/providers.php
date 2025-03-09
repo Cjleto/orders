@@ -2,8 +2,9 @@
 
 return [
     App\Providers\AppServiceProvider::class,
+    App\Providers\RateLimitSserviceProvider::class,
     App\Providers\VoltServiceProvider::class,
-    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     Barryvdh\Debugbar\ServiceProvider::class,
+    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 ];
