@@ -17,6 +17,9 @@ class OrderController extends ApiController
         protected OrderService $orderService
     ) {}
 
+    /**
+     * @see OpenApiOrder::index()
+     */
     public function index()
     {
         $orders = $this->orderService->getWithSortingAndIncludes();
@@ -24,6 +27,9 @@ class OrderController extends ApiController
         return OrderResource::collection($orders);
     }
 
+    /**
+     * @see OpenApiOrder::store()
+     */
     public function store(StoreOrderApiRequest $request, CreateOrderApiAction $createOrderApiAction)
     {
         $validated = $request->validated();
@@ -34,6 +40,9 @@ class OrderController extends ApiController
         return $this->success(new OrderResource($order), 201);
     }
 
+    /**
+     * @see OpenApiOrder::show()
+     */
     public function show(Request $request, Order $order)
     {
 
@@ -42,6 +51,9 @@ class OrderController extends ApiController
         return new OrderResource($order);
     }
 
+    /**
+     * @see OpenApiOrder::destroy()
+     */
     public function destroy(string $id)
     {
         $this->orderService->delete($id);

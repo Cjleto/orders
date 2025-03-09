@@ -11,12 +11,16 @@ use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 
+
 class ProductController extends ApiController
 {
     public function __construct(
         protected ProductService $productService
     ) {}
 
+    /**
+     * @see OpenApiProduct::index()
+     */
     public function index()
     {
         $products = $this->productService->getWithSortingAndIncludes();
@@ -24,6 +28,9 @@ class ProductController extends ApiController
         return ProductResource::collection($products);
     }
 
+    /**
+     * @see OpenApiProduct::store()
+     */
     public function store(ProductRequest $request)
     {
         $validated = $request->validated();
@@ -33,6 +40,9 @@ class ProductController extends ApiController
         return $this->success(new ProductResource($customer), 201);
     }
 
+    /**
+     * @see OpenApiProduct::show()
+     */
     public function show(Request $request, Product $product)
     {
         $product = $this->loadIncludes($request, $product);
@@ -49,6 +59,9 @@ class ProductController extends ApiController
         return $this->success(new ProductResource($product));
     }
 
+    /**
+     * @see OpenApiProduct::destroy()
+     */
     public function destroy(Product $product)
     {
         $this->productService->delete($product);
