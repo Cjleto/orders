@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.0](https://github.com/Cjleto/orders/compare/v1.2.0...v1.3.0) (2025-03-09)
+
+
+### Features
+
+* enhance error handling with custom JSON responses for NotFoundHttpException ([643a7be](https://github.com/Cjleto/orders/commit/643a7be9511efbda1ec2c23a7569faa1ce8348ed))
+* implement order completion check and enhance order item management in OrderService ([7313bdb](https://github.com/Cjleto/orders/commit/7313bdbeff4a571863e264660a33dc4db42cd5ae))
+
 ## [1.2.0](https://github.com/Cjleto/orders/compare/v1.1.1...v1.2.0) (2025-03-09)
 
 
