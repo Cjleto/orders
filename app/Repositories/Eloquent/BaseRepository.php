@@ -103,7 +103,7 @@ abstract class BaseRepository implements BaseContract
     public function getWithSortingAndIncludes(array $relations = [], ?int $perPage = null)
     {
         // Crea una chiave unica per la cache basata sulle condizioni
-        $cacheKey = 'model_data.'.md5(
+        $cacheKey = 'model_data.'.class_basename($this->model).'.'.md5(
             implode(',', $relations).
                 '-'.request()->query('sort_by', 'id'). // Modificato per ottenere direttamente il parametro di ordinamento
                 '-'.request()->query('order', 'asc'). // Modificato per ottenere direttamente il parametro di ordine
@@ -111,12 +111,6 @@ abstract class BaseRepository implements BaseContract
         );
 
         return Cache::remember($cacheKey, now()->addSeconds(config('myconst.cache_ttl_sec')), function () use ($relations, $perPage) {
-
-            DB::listen(function ($query) {
-                info('Query Executed: '.$query->sql);
-                // info('Bindings: ' . implode(', ', $query->bindings));
-                info('Time: '.$query->time.'ms');
-            });
 
             $query = $this->model->query();
 
