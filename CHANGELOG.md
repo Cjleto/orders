@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/Cjleto/orders/compare/v1.1.1...v1.2.0) (2025-03-09)
+
+
+### Features
+
+* add OpenAPI documentation and Swagger integration for API resou… ([acc02e0](https://github.com/Cjleto/orders/commit/acc02e0659dfe26769b634e2fc6638cdcb79d27d))
+* add OpenAPI documentation and Swagger integration for API resources and requests ([a16ade3](https://github.com/Cjleto/orders/commit/a16ade3f50607b215aef7ffe4bd0c34ab9bcca20))
+
 ## [1.1.1](https://github.com/Cjleto/orders/compare/v1.1.0...v1.1.1) (2025-03-07)
 
 
